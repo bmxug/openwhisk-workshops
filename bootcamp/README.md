@@ -1,7 +1,7 @@
 # Table of Contents
 
 - [Preface](#preface)
-- [Serverless Computing](#serverless-computing)
+- [サーバレスコンピューティング](#サーバレスコンピューティング)
 - [Prepare your engines!](#prepare-your-engines-)
 - [Start your engines!](#start-your-engines-)
   * [Actions](#actions)
@@ -27,14 +27,14 @@
   * [Triggers](#triggers)
   * [Rules](#rules)
   * [Monitoring](#monitoring)
-- [Build a weather engine!](#build-a-weather-engine-)
-  * [Address to locations service](#address-to-locations-service)
-  * [Forecast from location service](#forecast-from-location-service)
-  * [Sending messages to Slack](#sending-messages-to-slack)
-  * [Creating the weather bot using sequences](#creating-the-weather-bot-using-sequences)
-  * [Bot forecasts](#bot-forecasts)
-  * [Connecting to triggers](#connecting-to-triggers)
-  * [Morning forecasts](#morning-forecasts)
+- [天気予報エンジンを作る！](#天気予報エンジンを作る)
+  * [住所を位置情報へ](#住所を位置情報へ)
+  * [位置情報からの予測](#位置情報からの予測)
+  * [Slackへのメッセージ送信](#slackへのメッセージ送信)
+  * [シーケンスを利用してお天気ボットを作成する](#シーケンスを利用してお天気ボットを作成する)
+  * [ボットの予報](#ボットの予報)
+  * [トリガーに接続する](#トリガーに接続する)
+  * [朝の予報](#朝の予報)
 - [Build a serverless microservice backend!](#build-a-serverless-microservice-backend-)
   * [Your first API](#your-first-api)
     + [Mapping actions to endpoints](#mapping-actions-to-endpoints)
@@ -79,7 +79,7 @@
 
 # 序文
 
-はじめに、 **IBM Bluemix OpenWhisk** は最近 **IBM Cloud Functions** に改名されました。 これは、公式の見解では、 **Apache OpenWhisk** は、Apacheで利用可能なオープンソース・プロジェクトを意味し、 **IBM Cloud Functions** はIBMのパブリック・クラウド上で動作するIBMのサーバーレス・プラットフォームを指します（ IBM Bluemix）。 IBM Cloud Functions は、両方のプロジェクトが同じコアコードベースを共有するため、Apache OpenWhiskに完全に基づいています。
+はじめに、 **IBM Bluemix OpenWhisk** は最近 **IBM Cloud Functions** に改名されました。 これは、公式の見解では、 **Apache OpenWhisk** は、Apacheで利用可能なオープンソース・プロジェクトを意味し、 **IBM Cloud Functions** はIBMのパブリック・クラウド上で動作するIBMのサーバレス・プラットフォームを指します（ IBM Bluemix）。 IBM Cloud Functions は、両方のプロジェクトが同じコアコードベースを共有するため、Apache OpenWhiskに完全に基づいています。
 
 > Before you start, please note that **IBM Bluemix OpenWhisk** has recently been renamed to **IBM Cloud Functions**. This means that, from an official point of view, **Apache OpenWhisk** refers to the open-source project being available on Apache, while **IBM Cloud Functions** refers to IBM's serverless platform running on top of IBM's public cloud (IBM Bluemix). IBM Cloud Functions is entirely based on Apache OpenWhisk as both projects share the same core codebase.
 
@@ -90,12 +90,12 @@ During this workshop you will learn how to develop **serverless applications** c
 We wish you a lot of fun and success...
 
 
-# サーバーレスコンピューティング
+# サーバレスコンピューティング
 
-**サーバーレスコンピューティング**（別名**Funcions-as-a-Service (FaaS)**）は、サーバーの存在が完全に抽象化されているモデルを指します。
-つまり、サーバーがまだ存在していても、開発者はサーバの運用を気にする必要から解放されます。
+**サーバレスコンピューティング**（別名**Funcions-as-a-Service (FaaS)**）は、サーバの存在が完全に抽象化されているモデルを指します。
+つまり、サーバがまだ存在していても、開発者はサーバの運用を気にする必要から解放されます。
 スケーラビリティ、高可用性、インフラストラクチャセキュリティなどの低レベルのインフラストラクチャと運用を考慮する必要から解放されています。
-したがって、サーバーレスコンピューティングは、開発者が付加価値の高いコードを開発することに迅速に集中できるように、基本的にメンテナンスの労力を軽減することです。
+したがって、サーバレスコンピューティングは、開発者が付加価値の高いコードを開発することに迅速に集中できるように、基本的にメンテナンスの労力を軽減することです。
 
 サーバレスコンピューティングは、クラウドネイティブアプリケーションの開発を簡素化し、
   特に複雑なアプリケーションを簡単に交換できる小さな独立したモジュールに分解するマイクロサービス指向のソリューションです。
@@ -1219,7 +1219,7 @@ $ bx wsk action invoke forecast_from_latlong -p lat "51.50" -p lng "-0.12" -b -r
 
 予測ができたら、ボットのメッセージとして*Slack*に送信する必要があります。*Slack*は、*webhook*を利用して単純なボットを書く簡単な方法を提供します。着信webhookは、通常の*HTTP*リクエストを使用してデータを送信するURLをアプリケーションに提供します。*JSON*リクエスト本文の内容はぼっとメッセージとしてチャンネルに投稿されます。
 
-まず、https://slack.com/にアクセスし、画面の一番上にある「新しいチームを作成」リンクをクリックして、*Slack*上に新しいチームを作成します。
+まず、https://slack.com/ にアクセスし、画面の一番上にある「新しいチームを作成」リンクをクリックして、*Slack*上に新しいチームを作成します。
 
 指示に従ってチームを作成してください:
 あなたの`メールアドレス`を入力し、`次へ`ボタンをクリックしてください。
