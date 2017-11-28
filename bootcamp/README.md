@@ -2210,32 +2210,33 @@ To summarize, the App Connect flow took care of posting to a dedicated *Message 
 
 # Special fuel for your engine!
 
-OpenWhisk also integrates with other (3rd party) tools to provide developers with a great developer experience. In the following we have picked two simple samples to demonstrate such kind of integration.
+OpenWhiskはまた、他の（サードパーティの）ツールと統合して、開発者に素晴らしいエクスペリエンスを提供します。 以下では、２つの簡単なサンプルで統合を実証します。。
 
-## Developing with VS Code
+## VS Codeとの開発
 
-Many, especially *JavaScript/NodeJS*, developers use *VS Code* to develop their code.
-We have recently developed a prototypical extension (not yet officially supported) for *VS Code* that enables complete round trip cycles for authoring OpenWhisk actions inside the editor.
+多くの開発者、特に*JavaScript/NodeJS*は、*VS Code*を使ってコードを開発しています。
+私たちは最近、エディタ内でOpenWhiskアクションをオーサリングするための完全なラウンドトリップサイクルを可能にする*VS Code*のプロトタイプ拡張機能（まだ正式にはサポートされていません）を開発しました。
 
-The key point for this extension is that it has full round trip for OpenWhisk actions (*list, create new local, create new remote, update, import from remote system, invoke, etc.*) without the need to leave the IDE which makes development cycles far shorter and easier. The extension works for action written in different languages (like *JavaScript and Swift*) and on different platforms (like *Windows, Mac, and Linux*).
+この拡張機能のポイントは、IDEを離れずにOpenWhiskアクション(*リスト作成、新規ローカル作成、新しいリモート作成、更新、リモートシステムからのインポート、呼び出しなど)をフルラウンドトリップできることです。 開発サイクルはずっと短くて簡単です。 この拡張機能は、*JavaScriptやSwift*などの異なる言語で書かれたアクションや、*Windows、Mac、Linux*などのさまざまなプラットフォームで動作します。
 
-In the future we plan to provide more such plug-ins for additional IDEs (this is no official commitment) and hence seek for early feedback.
+将来的には、追加のIDE用にこのようなプラグインを提供する予定です(これは公式なコミットメントではありません)。
 
-First, download *VS Code* for your platform from here: https://code.visualstudio.com/  
-Next, download the extension from here: https://ibm.box.com/s/r4pdwpdmmceubzpnmsskp3hoh65r9zmm (in the near future you will also get the latest code from here: https://github.com/openwhisk/openwhisk-vscode#downloads)
+はじめに、*VS Code*をこちらからあなたのプラットフォームに合わせてダウンロードしてください: https://code.visualstudio.com/  
+次に、拡張機能をこちらからダウンロードしてください: https://ibm.box.com/s/r4pdwpdmmceubzpnmsskp3hoh65r9zmm (近い将来、最新版を入手する場合はこちらから: https://github.com/openwhisk/openwhisk-vscode#downloads)
 
-To install the extension open *VS Code* and switch to the extensions view (`View → Extensions`).  
-Click the `more` menu (represented by the `•••` icon at the very top) and select `install from VSIX...`  
-Point to the `VSIX file` you downloaded.
+拡張機能をインストールするには、*VS Code*を開いて拡張機能ビューへ切り替えます。(`表示 → 拡張機能`)  
+拡張機能の`•••`アイコンをクリックし、`VSIXからのインストール...`を選択します。
+ダウンロードした｀VSIXファイル`を選びます。
+その後、`今すぐ再度読み込む`をクリックし有効にします。
 
-Once you have the extension installed, you will have to run `wsk property set` inside of *VS Code* to set the `apihost`, `auth`, and `namespace` values the same way you did configure your local CLI at the very beginning of this workshop:
+拡張機能をインストールしたら、このワークショップの始まりでローカルのCLIを設定したのと同じ方法で、`apihost`、`auth`、`namespace`の値を設定するために*VS Code*の上中で`wsk property set`を実行する必要があります：
 
-Open the command palette via `View → Command Palette` or by pressing `F1` and entering: `wsk property set`
+`表示→コマンド パレット`でコマンド パレットを開くか、` F1`を押して `wsk property set`を入力してコマンド・パレットを開きます。
 
-When prompted select the option `apihiost` and press `enter`.  
-Next enter the correct value for the apihost property.
+プロンプトが表示されたら `apihiost`オプションを選択し、` enter`を押します。
+次に、apihostプロパティの正しい値を入力します。
 
-In the console you should see a result like this:
+コンソールには、次のような結果が表示されます:
 
 <pre>
 $ wsk property set apiHost openwhisk.ng.bluemix.net
@@ -2243,11 +2244,11 @@ set config: apiHost=openwhisk.ng.bluemix.net
 Configuration saved in C:\Users\IBM_ADMIN\.openwhisk\vscode-config.json
 </pre>
 
-Repeat this procedure to set the proper values for the `auth` and `namespace` properties.
+`auth`と`namespace`のプロパティについても正しい値に設定します。
 
-Notice that you can retrieve the correct values from here (after clicking the `Looking for the wsk CLI?` link at the very bottom of the screen): https://new-console.ng.bluemix.net/openwhisk/cli
+Notice ここから正しい値を取得できます (画面一番下にある`wsk CLI をお探しですか?`をクリックした後): https://new-console.ng.bluemix.net/openwhisk/cli
 
-Now switch to the explorer (`View → Explorer`), implement the following action and save the file (name it `helloFromVSCode.js`):
+エクスプローラーに切り替えて(`表示 → エクスプローラー`)、次のアクションを実装・ファイル保存します。 (名前は`helloFromVSCode.js`):
 
 ```javascript
 function main() {
@@ -2255,15 +2256,15 @@ function main() {
 }
 ```
 
-Press `F1` to open the command palette and enter:
+`F1`キーを押してコマンドパレットを開き、次のように入力します:
 
 <pre>
 wsk action create
 </pre>
 
-When prompted enter an identifier for your action like `helloFromVSCode`.
+プロンプトが表示されたら、 `helloFromVSCode`のようなアクションの識別子を入力してください。
 
-In the console you should see a result like this:
+コンソールには、次のような結果が表示されます:
 
 <pre>
 $ wsk action create helloFromVSCode
@@ -2271,15 +2272,15 @@ Creating a new action using the currently open document: file:///c%3A/Users/IBM_
 OpenWhisk action created: andreas.nauerz@de.ibm.com_dev/helloFromVSCode
 </pre>
 
-Finally, invoke the action by opening the command palette (`F1`) again and entering:
+最後に、コマンドパレット（ `F1`）をもう一度開き、次のように入力してアクションを呼び出します：
 
 <pre>
 wsk action invoke
 </pre>
 
-From the pull-down menu appearing select the action to be invoke – in our case the one named `helloFromVSCode`.
+表示されるプルダウンメニューから、呼び出すアクションを選択します。ここでは、「helloFromVSCode」という名前のアクションを選択します:
 
-In the console you should see a result like this:
+コンソールには、次のような結果が表示されます:
 
 <pre>
 $ wsk action invoke helloFromVSCode
@@ -2294,7 +2295,7 @@ $ wsk action invoke helloFromVSCode
 >> completed in 1855ms
 </pre>
 
-Feel free to experiment with the extension a bit on your own and provide us with any feedback you have.
+拡張機能を自分で少し試してみて、ご意見をお寄せください
 
 ## Developing with the Serverless Framework
 
