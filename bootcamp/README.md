@@ -35,7 +35,7 @@
   * [ボットの予報](#ボットの予報)
   * [トリガーに接続する](#トリガーに接続する)
   * [朝の予報](#朝の予報)
-- [Build a serverless microservice backend!](#build-a-serverless-microservice-backend-)
+- [サーバレスマイクロサービスバックエンドを構築する！](#build-a-serverless-microservice-backend-)
   * [Your first API](#your-first-api)
     + [Mapping actions to endpoints](#mapping-actions-to-endpoints)
   * [The Serverless Book Management Application](#the-serverless-book-management-application)
