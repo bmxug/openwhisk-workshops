@@ -2297,15 +2297,15 @@ $ wsk action invoke helloFromVSCode
 
 拡張機能を自分で少し試してみて、ご意見をお寄せください
 
-## Developing with the Serverless Framework
+## Serverless Frameworkで開発する
 
-Very recently we have announced our integration with the *Serverless Framework* (https://serverless.com/framework/). Hence, developers can now use the framework to build applications for the OpenWhisk platform.
+ごく最近、私達は*Serverless Framework* (https://serverless.com/framework/)と統合していくことを発表しました。これによって開発者はこのフレームワークを使用してOpenWhiskプラットフォームのアプリケーションを構築できます。
 
-The *Serverless Framework* is the most popular open-source framework for building serverless applications. Launching back in 2015, under a different name, the framework has experienced tremendous growth and now has over fourteen thousands stars on *Github*.
+*Serverless Framework*は、サーバーレスアプリケーションを構築するための最も一般的なオープンソースのフレームワークです。2015年に始まった別の名前で、このフレームワークは驚異的な成長を遂げており、現在*Github*には14,000以上のスターがつけられています。
 
-Thousands of developers are using the tool to build serverless applications every day.
+数千の開発者がこのツールを使用して毎日サーバーレスアプリケーションを構築しています。
 
-Using a simple manifest file, developers can define serverless functions, connect them to event sources and declare cloud services needed by their application.
+開発者は簡単なマニフェストファイルを使用して、サーバーレス機能を定義し、イベントソースに接続し、アプリケーションで必要なクラウドサービスを定義することができます。
 
 The framework handles deploying these serverless applications to the cloud provider. It also allows developers to monitor services in production, roll-out updates and assist debugging issues.
 
