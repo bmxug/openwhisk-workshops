@@ -3,30 +3,30 @@
 - [Preface](#preface)
 - [Serverless Computing](#serverless-computing)
 - [環境の準備](#prepare-your-engines-)
-- [サーバーレスをはじめよう!](#start-your-engines-)
-  * [アクション](#actions)
-    + [JavaScriptのアクションの作成と実行](#creating-and-invoking-javascript-actions)
-    + [非同期型のアクションの作成と呼び出し](#creating-and-invoking-asynchronous-actions)
-    + [アクションにパラメータを引き渡す](#passing-parameters-to-actions)
-    + [デフォルトのパラメータを設定する](#setting-default-parameters)
-    + [外部APIの呼び出しにアクションを用いる](#using-actions-to-call-an-external-api)
-    + [パッケージを用いて複数のアクションを連続実行する](#working-with-packages-and-sequencing-actions)
-  * [トリガーとルール](#triggers-and-rules)
-  * [ルールによるトリガーとアクションの連携](#using-rules-to-associate-triggers-and-actions)
-  * [依存性(dependencies)のアップロード](#uploading-dependencies)
-- [さらに深い理解を求めて](#boost-your-engines-)
-  * [IBM Cloud Functions UIを利用する](#getting-started-with-the-openwhisk-ui)
-  * [アクション](#actions-1)
-    + [Rest形式でアクションを呼び出す](#invoking-actions-via-rest-calls)
-    + [web actionsを通してアクションを呼び出す](#invoking-actions-via-web-actions)
-      - [web actionによるレスポンス](#web-action-responses)
-    + [アクションの定期実行](#invoking-actions-periodically)
-  * [ログ](#logging)
-  * [パッケージの活用](#working-with-packages)
-    + [アクションのシーケンス化](#sequencing-actions)
-  * [トリガー](#triggers)
-  * [ルール](#rules)
-  * [モニタリング](#monitoring)
+- [サーバーレスをはじめよう!](#サーバーレスをはじめよう)
+  * [アクション](#アクション)
+    + [JavaScriptのアクションの作成と実行](#javascriptのアクションの作成と実行)
+    + [非同期型のアクションの作成と呼び出し](#非同期型のアクションの作成と呼び出し)
+    + [アクションにパラメータを引き渡す](#アクションにパラメータを引き渡す)
+    + [デフォルトのパラメータを設定する](#デフォルトのパラメータを設定する)
+    + [外部APIの呼び出しにアクションを用いる](#外部APIの呼び出しにアクションを用いる)
+    + [パッケージを用いて複数のアクションを連続実行する](#パッケージを用いて複数のアクションを連続実行する)
+  * [トリガーとルール](#トリガーとルール)
+  * [ルールによるトリガーとアクションの連携](#ルールによるトリガーとアクションの連携)
+  * [依存性(dependencies)のアップロード](#依存性dependenciesのアップロード)
+- [さらに深い理解を求めて](#さらに深い理解を求めて)
+  * [IBM Cloud Functions UIを利用する](#ibm-cloud-functions-uiを利用する)
+  * [アクション](#アクション-1)
+    + [Rest形式でアクションを呼び出す](#rest形式でアクションを呼び出す)
+    + [web actionsを通してアクションを呼び出す](#web-actionsを通してアクションを呼び出す)
+      - [web actionによるレスポンス](#web-actionによるレスポンス)
+    + [アクションの定期実行](#アクションの定期実行)
+  * [ログ](#ログ)
+  * [パッケージの活用](#パッケージの活用)
+    + [アクションのシーケンス化](#アクションのシーケンス化)
+  * [トリガー](#トリガー)
+  * [ルール](#ルール)
+  * [モニタリング](#モニタリング)
 - [Build a weather engine!](#build-a-weather-engine-)
   * [Address to locations service](#address-to-locations-service)
   * [Forecast from location service](#forecast-from-location-service)
@@ -35,20 +35,20 @@
   * [Bot forecasts](#bot-forecasts)
   * [Connecting to triggers](#connecting-to-triggers)
   * [Morning forecasts](#morning-forecasts)
-- [Build a serverless microservice backend!](#build-a-serverless-microservice-backend-)
-  * [Your first API](#your-first-api)
-    + [Mapping actions to endpoints](#mapping-actions-to-endpoints)
-  * [The Serverless Book Management Application](#the-serverless-book-management-application)
-    + [Creating a Cloudant Instance](#creating-a-cloudant-instance)
-    + [Creating a Database](#creating-a-database)
-  * [Expose your weather services](#expose-your-weather-services)
-- [Composing more complex serverless applications](#composing-more-complex-serverless-applications)
-  * [Getting started](#getting-started)
-  * [Your first Composition](#your-first-composition)
-  * [More Compositions](#more-compositions)
-  * [Nesting and data-forwarding](#nesting-and-data-forwarding)
-  * [Inline coding](#inline-coding)
-- [IBM App Connect & Message Hub](#ibm-app-connect---message-hub)
+- [サーバーレスなマイクロサービスバックエンドを構築する](#サーバーレスなマイクロサービスバックエンドを構築する)
+  * [はじめてのAPI](#はじめてのapi)
+    + [エンドポイントにアクションをマッピングする](#エンドポイントにアクションをマッピングする)
+  * [サーバレス式図書管理アプリケーション](#サーバレス式図書管理アプリケーション)
+    + [Cloudantのインスタンスの作成](#cloudantのインスタンスの作成)
+    + [データベースを作成する](#データベースを作成する)
+  * [気象サービスの出力](#気象サービスの出力)
+- [より複雑なサーバレスアプリケーションを構成する](#より複雑なサーバレスアプリケーションを構成する)
+  * [はじめよう](#はじめよう)
+  * [はじめてのComposition](#はじめてのcomposition)
+  * [コンポジションのさらなる探求](#コンポジションのさらなる探求)
+  * [ネスティングとデータ転送](#ネスティングとデータ転送)
+  * [インラインコーディング](#インラインコーディング)
+- [IBM App ConnectとMessage Hub](#ibm-app-connectとmessage-hub)
 - [Special fuel for your engine!](#special-fuel-for-your-engine-)
   * [Developing with VS Code](#developing-with-vs-code)
   * [Developing with the Serverless Framework](#developing-with-the-serverless-framework)
@@ -58,24 +58,24 @@
     + [Connecting API Endpoints](#connecting-api-endpoints)
     + [Working with Triggers and Rules](#working-with-triggers-and-rules)
     + [Packaging your weather services](#packaging-your-weather-services)
-- [Node-RED and OpenWhisk](#node-red-and-openwhisk)
-  * [Installing Node-RED](#installing-node-red)
-  * [Starting Node-RED](#starting-node-red)
-  * ["Hello World" with Node-RED](#-hello-world--with-node-red)
-    + [Add an Inject node](#add-an-inject-node)
-    + [Add a Debug node](#add-a-debug-node)
-    + [Wire the two together](#wire-the-two-together)
-    + [Deploy](#deploy)
-    + [Add a Function node](#add-a-function-node)
-  * [Adding Nodes to Node-RED](#adding-nodes-to-node-red)
-    + [Invoking OpenWhisk actions from Node-RED](#invoking-openwhisk-actions-from-node-red)
-  * [Invoking OpenWhisk Triggers from NodeRED](#invoking-openwhisk-triggers-from-nodered)
-    + [Creating New OpenWhisk Actions from Node-RED](#creating-new-openwhisk-actions-from-node-red)
-- [The coolest engines out there!](#the-coolest-engines-out-there-)
+- [Node-REDとIBM Cloud Functions](#node-redとibm-cloud-functions)
+  * [Node-REDのインストール](#node-redのインストール)
+  * [Node-REDをの開始](#node-redの開始)
+  * [Node-REDで"Hello World"](#node-redで-hello-world-)
+    + [Injectノードの追加](#injectノードの追加)
+    + [Debugノードの追加](#debugノードの追加)
+    + [ノードの連結](#ノードの連結)
+    + [デプロイ](#デプロイ)
+    + [Functionノードの追加](#functionノードの追加)
+  * [Node-REDにノードを追加](#node-redにノードを追加)
+    + [Node-REDからIBM Cloud Functionsアクションを呼び出し](#node-redからibm-cloud-functionsアクションを呼び出し)
+  * [Node-REDからのFunctionsトリガーの呼び出し](#node-redからのfunctionsトリガーの呼び出し)
+    + [新規IBM Cloud FunctionsアクションをNode-REDから作成](#新規ibm-cloud-functionsアクションをnode-redから作成)
+- [イケてるアプリは目前に!](#イケてるアプリは目前に)
   * [Vision App](#vision-app)
   * [Dark Vision](#dark-vision)
   * [Skylink](#skylink)
-- [Learning more](#learning-more)
+- [もっと知りたい！](#もっと知りたい)
 
 # 序文
 
@@ -1422,28 +1422,29 @@ $ bx wsk rule disable regular_forecast_rule
 <b>ok:</b> rule <b>regular_forecast_rule</b> is <b>inactive</b>
 </pre>
 
-# Build a serverless microservice backend!
+# サーバーレスなマイクロサービスバックエンドを構築する
 
-Actions can be seen as flexible and independently deployable microservices they are perfectly suited to build up entirely serverless microservice backends that expose functions via simply *APIs* (Application Programming Interfaces).
+アクションがいかに柔軟性を持ち独立的にデプロイ可能なマイクロサービスであるかを実感していることでしょう。アクションは機能を *API* (Application Programming Interface)機能を出力するとして完全にサーバーレスなマイクロサービスバックエンドの構築に最適です。
 
-In this context APIs are the digital glue that links services, applications, sensors and mobile devices to create compelling customer experiences and help businesses tap into new market opportunities. They allow you to bring new digital services to market, open revenue channels and exceed customer expectations.
+ここでの文章ではAPIは、目を離せないような顧客体験を産み、新しい市場機会に参入するための、サービスやアプリケーションやセンサーやモバイルデバイスを結び合せるデジタルな接着剤なのです。APIにより、市場に新しいデジタルサービスをもたらし、利益のチャネルを開き、顧客の期待を高めることができます。
 
-OpenWhisk's API Gateway integration is a new feature that enables you to easily expose your OpenWhisk actions as *RESTful* endpoints. You can assign actions to specific endpoints, and even have verbs (`GET`, `PUT`, `POST`, `DELETE`) from the same endpoint assigned to different actions.
+IBM Cloud FunctionsのAPIゲートウェイインテグレーションは、アクションを *RESTful* エンドポイントとして簡単に出力するためのIBM Cloud Funtionsの新しい特色である。アクションを任意のエンドポイントに振り分け、`GET`・`PUT`・`POST`・`DELETE`といった動作を他のアクションに振り分けた同じエンドポイントから実行することもできる。
 
-There are two different approaches to expose your actions with the API gateway:
-* Assigning API endpoint/verb combinations to specific actions individually
-* Using a *Swagger* config file to map API endpoints to actions
+APIゲートウェイを用いてアクションを出力するには2つの異なる方法が存在する。
+* APIのエンドポイント/動作の組み合わせを任意のアクションに独立して振り分ける。
+* アクションにAPIエンドポイントを振り分けるのに *Swagger* 設定ファイルを用いる。
 
-You can define your APIs using our CLI or using our UI – in the following we will make use of both.
+CLIまたはUIを用いてAPIを定義することができます。この後の説明では両方の方法を説明します。
 
-Notice that actions exposed via OpenWhisk's API Gateway integration are currently treated like web actions; hence once can make use of the properties `headers`, `status`, or `body` as seen before.
+IBM Cloud FunctionsのAPIゲートウェイインテグレーションを用いたアクションの出力は現時点ではweb actionsのように扱われている。そのため、先に確認したように`ヘッダー`・`ステータス`・`ボディ`といったプロパティを利用することができる。
 
-## Your first API
+## はじめてのAPI
 
-Let's examine how to expose an action able to generate Fibonacci numbers as a *REST* API.
+*REST* APIとしてフィボナッチ数列を作成するアクションを出力する方法を探索してみましょう。
 
-Therefore, let's first have a look at the action itself:
-It's a relatively simple action that generates numbers in a Fibonacci sequence, where every number after the first two is the sum of the two preceding values. When invoking this action from the command line, you specify a `num` parameter (for the n-th place in the sequence), and it will return the value, the complete sequence, and the number of recursive invocations of the Fibonacci method:
+というわけで、まずはアクションそのものについて見ていきましょう。
+フィボナッチ数列に従って、前の2つの数字を足し合わせたものが次の数になるという数字の生成は比較的単純なものです。
+コマンドラインからアクションを呼び出して、(数列のn番目の値のための)`num`パラメータを設定すると、フィボナッチ数列の帰納的な呼び出しにメソッドに従ってn項目の値と初項からn項目までの数列とフィボナッチメソッドを回帰的に呼び出した回数を返します。
 
 ```javascript
 var sequence = [1];
@@ -1481,7 +1482,7 @@ function fibonacci(num) {
 }
 ```
 
-Next, let's deploy and invoke the action:
+次に、アクションをデプロイし呼び出しましょう。
 
 <pre>
 $ bx wsk action create fibonacci fibonacci.js
@@ -1494,26 +1495,26 @@ $ bx wsk action invoke fibonacci -p num 5 -b -r
 }
 </pre>
 
-### Mapping actions to endpoints
+### エンドポイントにアクションをマッピングする
 
-Now, let's examine how a specific action can be associated with an API endpoint/verb. Using the OpenWhisk CLI, you must specify an `API path`, a `verb` (`GET`, `POST`, `PUT`, `DELETE`), and the `action`.
+それではどのようにアクションがAPIのエンドポイント/動作に関連づいているかを学んでいきましょう。IBM Cloud Functions CLIを用いる際には、`APIパス`・`動作`(`GET`・`POST`・`PUT`・`DELETE`)そして`アクション`を設定しなければなりません。
 
-Notice that you may have to issue the following command and select the proper namespace before able to proceed:
+下記のコマンドをnamespaceを適当なものに直した上で実行してください。
 
 <pre>
 $ bx login -a api.ng.bluemix.net -o &lt;organization&gt; -s &lt;namespace&gt;
 </pre>
 
-If you are wondering what does the properties above mean, copy the full command from this link: https://console.bluemix.net/openwhisk/learn/cli
+上のプロパティの意味がわからないようであれば、次のリンクから、コマンドをフルコピーしてください。 https://console.bluemix.net/openwhisk/learn/cli
 
-Now, we need to enable the action as web action:
+さて、アクションをweb actionとして実行しましょう。
 
 <pre>
 $ bx wsk action update fibonacci --web true
 <b>ok:</b> updated action <b>fibonacci</b>
 </pre>
 
-Next, let's use the API path `/fibonacci`, and the verb `GET` to point to the action `fibonacci`:
+次に、APIパス`/fibonacci`を用いて、`fibonacci`アクションを`GET`しましょう。
 
 <pre>
 $ bx wsk api create /fibonacci get fibonacci
@@ -1521,38 +1522,38 @@ $ bx wsk api create /fibonacci get fibonacci
 https://service.us.apiconnect.ibmcloud.com/gws/apigateway/api/8326f1d8a3dbc5afd14413a2682b7a78e17a55ee352f6c03f6be82718d69726e/fibonacci
 </pre>
 
-So, let's try it out:
+さて、実行してみましょう。
 
 <pre>
 $ curl --request GET https://service.us.apiconnect.ibmcloud.com/gws/apigateway/api/8326f1d8a3dbc5afd14413a2682b7a78e17a55ee352f6c03f6be82718d69726e/fibonacci?num=10
 n: 10, value: 89, sequence: 1,1,2,3,5,8,13,21,34,55,89, invocations: 19
 </pre>
 
-Notice that parameters that are passed via the query string will be available in the `params` object passed into the actions' `main` function.
+クエリ文字列を通して引き渡されたパラメータは、アクションの`main`関数へと引き渡された`params`オブジェクトで利用できます。
 
-## The Serverless Book Management Application
+## サーバレス式図書管理アプリケーション
 
-Now let's do something a bit more powerful: Let's say you want to expose a set of actions for managing books you have read etc. Therefore, you need to implement a couple of actions forming a serverless microservices backend for creating, reading, updating, and deleting books.
+それではもう少し難易度をあげたものに挑戦しましょう。あなたが読むなどした図書を管理するアクションのセットを出力するなんていかがでしょう？このアプリには、図書を新規登録し、読み、更新し、削除するためのサーバーレスマイクロサービスバックエンドを構成するアクションの実装が必要です。
 
-In the following we strongly recommend to use a *REST* client like *Insomnia*
-(https://insomnia.rest/) to invoke the API endpoints that will be defined – otherwise you may get annoyed by escaping efforts. However, if you decide to use `curl` or another client, make sure you pass over the `application/json` header.
+ここからは、いささか複雑になりますので *Insomnia* のような *REST* クライアント (https://insomnia.rest/)を使いこれから定義するAPIエンドポイントを呼び出すことを強く推奨します。
+しかし、もしあなたが、`curl` など他のクライアントを使うことにしたのならば、必ず`application/json`ヘッダーを除外してください。
 
-### Creating a Cloudant Instance
+### Cloudantインスタンスの作成
 
-Let's assume you want to store the books in *Cloudant* as this would make things very easy as OpenWhisk already provides you with a *Cloudant* package that allows you to work with *Cloudant* without the need to write code.
+さて、図書を貯蓄するのには、IBM Cloud Functionsによって提供済の *Cloudant* パッケージを使いコードを書く手間を省きましょう。
 
-From the OpenWhisk UI, click the `Catalog` (not the `Browse Public Packages`) link at the top right of the screen.  
-From the menu on the left-side select `Data & Analytics`.  
-Click `Cloudant NoSQL DB`.  
-As service name specify `bookStore`, leave everything else as-is and click the `Create` button.
+IBM Cloud Functionsを開き、画面の右上部にある`カタログ` を開きましょう(`パブリックパッケージの参照`ではありません)
+左部のメニューから`データ＆分析`を選択します。
+`Cloudant NoSQL DB`をクリックします。
+サービス名は`bookStore`とします。他はそのままにして、`作成`ボタンをクリックします。
 
-Once the instance has been created switch to the `Service Credentials` tab, create new credentials by clicking the `New credential` link and click the `View Credentials` link. You will need the `username`, `password` and `host` shown there throughout the rest of this chapter, hence leave this browser tab open.
+インスタンスが作成されたら、`サービス資格情報`のタブへと移動し、`新規資格情報`リンクそクリックして新しい資格情報を作成した後、`資格情報の表示`リンクをクリックします。この後ここに書かれた`username`・'password'・'host'の情報を利用しますので、このブラウザタブはこのまま開いたまま置いておきましょう。
 
-### Creating a Database
+### データベースを作成する
 
-Now that you have created a *Cloudant* instance, let's create a database for storing the books in.
+*Cloudant* インスタンスを作成しましたね。それでは図書を納めるためのデータベースを作成していきましょう。
 
-OpenWhisk can automatically create package bindings for your (Bluemix) *Cloudant service* instances:
+IBM Cloud Functionsでは自動的に(IBM Cloud上の) *Cloudantサービス* インスタンスをバインドしたパッケージを作成します。
 
 <pre>
 $ bx wsk package refresh
@@ -1562,7 +1563,8 @@ Bluemix_bookStore_Credentials-1
 [...]
 </pre>
 
-The refresh automatically creates a package binding for the *Cloudant service* instance that you created. To verify this:
+更新後自動的にあなたが作成した *Cloudantサービス* インスタンスのパッケージバインディングが作成されます。
+これを検証するにはー
 
 <pre>
 $ bx wsk package list
@@ -1571,7 +1573,7 @@ $ bx wsk package list
 [...]
 </pre>
 
-Once again, to reveal the list of entities in the `/whisk.system/cloudant` package run the following command:
+`/whisk.system/cloudant`パッケージに入っているエンティティのリストを表示するには下記のコマンドを使います。
 
 <pre>
 $ bx wsk package get --summary Bluemix_bookStore_Credentials-1
@@ -1583,40 +1585,40 @@ $ bx wsk package get --summary Bluemix_bookStore_Credentials-1
 [...]
 </pre>
 
-As before, to avoid the need to pass in the same parameters to the package's actions every time, let's bind certain parameters:
+パッケージのアクションに毎回同じパラメータを引き渡す手間を避けるために、パラメータをバインドしてしまいましょう。
 
 <pre>
 $ bx wsk package bind /whisk.system/cloudant myBookStore -p username &lt;username&gt; -p password &lt;password&gt; -p host &lt;host&gt;
 <b>ok:</b> created binding <b>myBookStore</b>
 </pre>
 
-One of the actions available is called `create-database`.
-Let's use that one to create our database:
+すでに使えるアクションに`create-database`というものがあります。
+これを使ってデータベースを作りましょう。
 
 <pre>
 $ bx wsk action invoke myBookStore/create-database -p dbname books
 <b>ok:</b> invoked <b>/_/myBookStore/create-database</b> with id <b>3f67a23daa8b44efa35725fc22585f9</b>
 </pre>
 
-Now, we could easily store books into this database using the above package's `write` action. Alternatively, we could first map an API endpoint to this and other useful actions part of the package.
+これで、上のパッケージの`write`アクションを使って図書を簡単に貯蔵できます。代わりに、APIエンドポイントをここやパッケージの中の他の有用なアクションに配置することもできます。
 
-Before doing so let's update the binding so that we do not even need to pass in the `dbname` anymore:
+それをする前に、バインドをアップデートして、`dbname`を引き渡ししなくていいようにしておきましょう。
 
 <pre>
 $ bx wsk package update myBookStore -p username &lt;username&gt; -p password &lt;password&gt; -p host &lt;host&gt; -p dbname books
 <b>ok:</b> updated package <b>myBookStore</b>
 </pre>
 
-Before mapping our actions, let's create a `query index` for the field `name` so we can query books by name later on:
+アクションのマッピングの前に、`query index`を`name`フィールドに作成して、あとで書名で図書を検索できるようにしておきましょう。
 
 <pre>
 $ bx wsk action invoke myBookStore/create-query-index -p index "{\"index\": {},\"type\":\"text\"}" --blocking
 <b>ok:</b> invoked <b>/_/myBookStore/create-query-index</b> with id <b>4g67a23daa8b44efa35725fc22585f0</b>
 </pre>
 
-As we currently do not allow package bound actions to be enabled as web actions and as we, at the same time, require an action to be a web action in order to be able to expose it via our API Gateway we have to perform a little trick: We have to implement a simply proxy action that can be enabled as web action and simply calls the package bound action holding all the previously defined parameters using sequencing. But this is not a trick only, executing such proxy actions before and after the actual action is often even required: The action supposed to be executed before the actual action often has to take care of things like authentication while the one supposed to be executed after the actual action often has to perform data transformations.
+現時点ではパッケージをweb actionとして使えるようにアクションをパッケージにバインドしないのですが、それと同時にAPIゲートウェイを通してアクションをweb actionとして出力する必要があるので、ここでちょっとした工夫が必要です。web actionとして使えるアクションであり、シーケンスを使ってそれまでに定義されたパラメータを全て抱えたアクションをバインドしたパッケージを呼び出すことができる、簡単なプロキシアクションを実装します。これは単なる工夫ではないのです。実際のアクションの前後にこのようなプロキシアクションを実行するということはしばしば必要となることなのです。実際のアクションを実行する前に実行したほうが良いアクションに関しては、認証など、注意して置いたほうが良いものがあることがあります。一方、実際のアクションの後に実行されるアクションに関しては、データの移行が必要になることがあります。
 
-Hence, create an action named `proxy` like this:
+それでは、以下のようにして`proxy`というアクションを作成してみましょう。
 
 ```javascript
 function main(params) {
@@ -1624,7 +1626,7 @@ function main(params) {
 }
 ```
 
-Next, we create 3 sequences and enable them as web actions:
+次に3つのシークエンスを作成し、web actionとして機能するようにしましょう。
 
 <pre>
 $ bx wsk action create endpoint_get --sequence proxy,myBookStore/exec-query-find --web true
@@ -1637,7 +1639,7 @@ $ bx wsk action create endpoint_delete --sequence proxy,myBookStore/delete-docum
 <b>ok:</b> created action <b>endpoint_delete</b>
 </pre>
 
-Next, let's map API endpoints to actions:
+次に、APIエンドポイントをアクションに配置しましょう。
 
 <pre>
 $ bx wsk api create /books GET endpoint_get
@@ -1653,10 +1655,10 @@ $ bx wsk api create /books DELETE endpoint_delete
 https://service.us.apiconnect.ibmcloud.com/gws/apigateway/api/8326f1d8a3dbc5afd14413a2682b7a78e17a55ee352f6c03f6be82718d69726e/books
 </pre>
 
-Now, let's store some books.
-To do so use your *REST* client to submit a `POST` against the endpoint you have created prior.
+それでは図書を貯蔵しましょう。
+*REST* クライアントを用いて先に作ったエンドポイントに`POST`しましょう。
 
-Make sure to hand-over the following *JSON* data:
+下記の *JSON* データを必ず引き渡しましょう。
 
 ```json
 {
@@ -1666,7 +1668,7 @@ Make sure to hand-over the following *JSON* data:
 }
 ```
 
-Output:
+出力結果:
 
 ```json
 {
@@ -1676,7 +1678,7 @@ Output:
 }
 ```
 
-And then:
+そして:
 
 ```json
 {
@@ -1686,7 +1688,7 @@ And then:
 }
 ```
 
-Output:
+出力結果:
 
 ```json
 {
@@ -1696,10 +1698,10 @@ Output:
 }
 ```
 
-Next, let's query all books.
-To do so use your *REST* client to submit a `GET` against the endpoint you have created prior.
+次に全ての本を検索しましょう。
+*REST* クライアントを使って、先に作成したエンドポイントに`GET`しましょう。
 
-Hand-over the following query parameter to define the *selector*:
+*selector* を定義するために以下のクエリパラメータを引き渡します。
 
 ```json
 {
@@ -1716,7 +1718,7 @@ Hand-over the following query parameter to define the *selector*:
 }
 ```
 
-Output:
+出力結果:
 
 ```json
 {
@@ -1735,10 +1737,10 @@ Output:
 [...]
 ```
 
-Next, let's query a particular book.
-To do so use your *REST* client to submit a `GET` again.
+次に、特定の本のみを検索します。
+もう一度 *REST* クライアントを使って`GET`してください。
 
-Hand-over the following query parameter to define the selector:
+セレクタを定義するために以下のクエリパラメータを引き渡します。
 
 ```json
 {
@@ -1756,7 +1758,7 @@ Hand-over the following query parameter to define the selector:
 ```
 
 
-Output:
+出力結果:
 
 ```json
 {
@@ -1770,61 +1772,62 @@ Output:
 [...]
 ```
 
-Now, let's delete the book we just queried.  
-To do so use your *REST* client to submit a `DELETE`.  
-Hand-over the `docid` and `docrev` of the book you just queried as query parameter.
+それでは探し当てた図書を削除しましょう。
+*REST* クライアントを使って`DELETE`しましょう。
+クエリパラメータとして探した図書の`docid`と`docrev`を引き渡します。
 
-Again, query all books to validate that the book has been properly deleted.
+図書が適切に削除されたか、全ての本を検索して検証しましょう。
 
-## Expose your weather services
 
-Now, let's make the previously implemented weather services (functions) accessible via some simple APIs, too. This time we will use the UI (instead of the CLI) to define these APIs.
+## 気象サービスの出力
 
-Again, open the OpenWhisk UI.  
-Select the `API` tab.  
-Click the `Create an OpenWhisk API` button (only visible if you haven't created any API before).  
-As `API name` specify `weatherAPI`.  
-Leave everything else as-is and click the `Save` button at the bottom of the screen.
+先に実装した気象サービス(関数)もAPIを通してアクセスできるようにしましょう。今回はAPIの定義に(CLIではなく)UIを使っていきます。
 
-On the next screen select the `Definition` tab from the navigation on the left of the screen.  
-Click the `Create Operation` button.  
-As `path` specify `location_to_latlong`.  
-As `action` select the `location_to_latlong` action.  
-Leave everything else as-is and click the `Save` button at the bottom of the screen.  
-Click the `Save` button at the bottom of the screen.
+IBM Cloud Functions UIを開きます。
+`API`タブを選択します。
+`OpenWhisk APIの作成`ボタンをクリックします。(それまでにAPIを作成したことがない場合のみ表示されます。)
+`API名`を`weatherAPI`とします。  
+他の設定をそのままにして、画面下部の`保存`をクリックします。
 
-To find out the `URL` to be used to invoke this operation switch to the `API Explorer` tab.  
-From the list at the left select the `getLocationtolatlong` entry and copy the `GET URL` shown.  
-Open a browser window and append they query parameter `?location=London`.  
-You should be presented the latitude and longitude of London.
+次の画面で画面左部の`定義`タブを選択します。
+`操作の作成`クリックします。
+`パス`を`location_to_latlong`とします。
+`アクション`に`location_to_latlong`アクションを選択します。
+他はそのままにして、画面下部の`保存`をクリックします。
+もう一度、画面下部の`保存`をクリックします。
 
-Switch back to the `Definition` tab and, based on what you just learned, expose the `forecast_from_latlong` action by adding another operation, too.
+この操作を呼び出しするための`URL`を確認するために、`APIエクスプローラー`タブに移ります。
+左部にあるリストから、`getloactiontolatlong`エントリーを選択し、`GET URL`をコピーします。
+ブラウザウィンドウを開き、クエリパラメータ`?location=London`を加えます。
+ロンドンの緯度と軽度が表示されているでしょう。
 
-At this point feel free to play around with other features of our API Gateway integration.
+`定義`タブに戻り、今までの学習を元に、`forecast_from_latlong`アクションを新たな操作を追加することによって出力してください。
 
-# Composing more complex serverless applications
+APIゲートウェイインテグレーションのその他の特色も色々探っていただいても構いませんよ。
 
-So far we have developed application logic only contained in single actions (aka functions) that could have been seen as loosely coupled microservices. They were rather simple and focussed on very specific tasks.
+# より複雑なサーバレスアプリケーションを構成する
 
-While the implementation of such microservices is rather simple, their composition or orchestration is way more complex. That's why frameworks like Kubernetes with additions like Istio have meanwhile become very popular. With IBM's new *Composer*  developers can now build apps that leverage multiple functions and that require more complex, coordinated flows for end to end solutions.
+これまでは、単一のアクション(関数)による、疎結合されたマイクロサービスである、アプリケーションを構築してきました。どちらかというと、単純で具体的なタスクに焦点が当てられたものでした。
 
-Composer is a programming model (extension) for composing individual functions into larger applications. *Compositions*, informally named *apps*, run in the cloud using automatically managed compute and memory resources. Composer enables stateful computation, control flow, and rich patterns of data flow.
+そういったマイクロサービスの実装は比較的簡単である一方で、それらの組み合わせや結合はむしろより複雑です。それがKubernetesのようなフレームワークにIstioのようなものを加えて利用するのがとても流行っている理由なのです。IBMの *Composer* ディベロッパを使えば、複数の関数を有し、より複雑でend to endなソリューションのためにコーディネートされたフローを要するアプリケーションを構築することができます。
 
-This means Composer allows to develop more complex serverless applications by combining multiple functions using control logic and state.
+Composerは独立した関数をより大きなアプリケーションに組み込むためのプログラミングモデル(拡張子)である。 *Compositions* という非公式の名前がつけられた *アプリケーション* は自動管理されたコンピュートとメモリを使ってクラウド上で起動しています。Composerは安定した計算機能、管理フローそして潤沢なパターン数のデータフローを可能とします。
 
-Composer has two parts: The first is a library for describing compositions, programmatically. The library is currently available in Node.js. The second is a runtime that executes the composition.
+つまり、Conposerは、管理ロジックとステータスを使って複数の関数を組み合わせ、より複雑なサーバーレスアプリケーションの構築を可能とするのです。
 
-## Getting started
+Composerには2つのパターンがあります。1つはプログラム的に構成状態を表すライブラリです。そのライブラリは現時点ではNode.jsで利用できます。2つ目は構成を実行するランタイムです。
 
-To work with compositions the new functions programming shell (aka `fsh`) is required.
+## はじめよう
 
-Hence, let's first install `fsh`:
+Composerを扱うには、新しいfunctions programming shell(fsh)が必要です。
+
+それではまず`fsh`をインストールしましょう。
 
 <pre>
 $ npm install -g @ibm-functions/shell
 </pre>
 
-After the installation, you can find out about `fsh`'s basic capabilities like this:
+インストールが終わったら、このようにして`fsh`を基本的な機能として確認できます。
 
 <pre>
 $ fsh
@@ -1834,26 +1837,26 @@ Usage information:
 [...]
 </pre>
 
-## Your first Composition
+## はじめてのComposition
 
-Compositions can be defined via JSON or, alternatively, using Node code that relies on the Composer SDK. In the following we will focus on the second approach which usually feels more natural for developers.
+compositionはJSONまたはComposer SDK上のNodeコードを使って定義できます。この後の流れでは、開発者にとってはより自然である、先ほどあげたうち2つ目のアプローチに焦点を当てていきます。
 
-Combinators accept either inline Node functions or functions (aka actions) by name. For the latter, you can either use functions' fully qualified or short names.
+CombinatorsはインラインNode関数も指名された関数(アクション)も許容できます。後者に関しては、関数の正式名称も省略名称も使えます。
 
-One of the easiest to understand and out-of-the-box available composition methods is the `if`:
-`composer.if(condition, consequent, alternate)` runs either the `consequent` task if the condition evaluates to true or the `alternate` task if not. The `condition`, `consequent`, and `alternate` tasks are all invoked on the input parameter object for the composition. The output parameter object of the condition task is discarded.
+理解と汎用性を求めた時に思い当たる最も簡単なCompositionメソッドの1つは`if`です。
+`composer.if(condition, consequent, alternate)`は、conditionがtrueの際の`consequent`タスクもそうでない際の`alternate`タスクも稼働できます。`condition`・`consequent`・`alternate`タスクは全てCompositionの入力パラメータオブジェクトに呼び出されます。Conditionタスクの出力パラメータオブジェクトは破棄されます。
 
-Let's first define the composition (and store it in a file named `demo_if.js`):
+それではまずcompositionを定義しましょう(そして`demo_if.js`ファイルにそれを格納しましょう。)。
 
 ```javascript
 composer.if('condition', /* then */ 'success', /* else */ 'failure')
 ```
 
-This composition defines that if the function `condition` evaluates to `true` the function `success` is being executed and the function `failure` otherwise.
+このCompositionは関数の`conditionが`true`ならば関数を`成功`させ、そうでなければ関数は`失敗`にします。
 
-Now, let's define the three aforementioned functions.
+それでは、前述の3つの関数を見ていきましょう。
 
-First, the function `condition` (to be stored in a file named `condition.js`):
+まずは`condition`関数です。(`condition.js`というファイルに貯蔵されています。)
 
 ```javascript
 function main(params) {
@@ -1865,9 +1868,9 @@ function main(params) {
 }
 ```
 
-Notice that returning a JSON object with a key names `value` and a value of type boolean is essential.
+基本的に、キー名が`value`でブーリアンであるJSONオブジェクトを返すようになっています。
 
-Second, the function `success` (to be stored in a file named `success.js`):
+2つ目は`success`関数です。(`success.js`というファイルの中に貯蔵されています。)
 
 ```javascript
 function main() {
@@ -1875,7 +1878,7 @@ function main() {
 }
 ```
 
-Third, the function `failure` (to be stored in a file named `failure.js`):
+3つ目は`failure`関数です。(`failure.js`というファイルに貯蔵されています。)
 
 ```javascript
 function main() {
@@ -1883,7 +1886,7 @@ function main() {
 }
 ```
 
-Next, deploy the three functions:
+次に3つの関数をデプロイします。
 
 <pre>
 $ fsh action create condition condition.js
@@ -1891,15 +1894,15 @@ $ fsh action create success success.js
 $ fsh action create failure failure.js
 </pre>
 
-Next, deploy the actual composition:
+それから、実際のコンポジションをデプロイします。
 
 <pre>
 $ fsh app create demo_if demo_if.js
 </pre>
 
-Before invoking the composition one can visualize it by entering `fsh app preview demo_if.js`.
+コンポジションを呼び出す前に、`fsh app preview demo_if.js`と入力することにより、その確認ができます。
 
-Next, invoke the composition, first without specifing a password which should cause the function `condition` to return `false` and hence the function `failure` to be invoked:
+次にコンポジション呼び出します。まずは、`condition`関数を呼び起こすパスワードを指定せずに`failure`にし、`failure`関数が呼び出されるようにしましょう。
 
 <pre>
 $ fsh app invoke demo_if
@@ -1908,7 +1911,7 @@ $ fsh app invoke demo_if
 }
 </pre>
 
-Finally, invoke the composition again, this time with specifing the password `andreas` which should cause the function `condition` to return `true` and hence the function `success` to be invoked:
+最後に、コンポジションをもう一度呼び出します。今回は`andreas`というパスワードを指定し、`condition`関数を`true`にし、`success`関数が呼び出されるようにしましょう。
 
 <pre>
 $ fsh app invoke demo_if -p password andreas
@@ -1917,20 +1920,20 @@ $ fsh app invoke demo_if -p password andreas
 }
 </pre>
 
-By entering `fsh session get <session id>` one can also visualize the results of an invocation - try it out!
+`fsh session get <session id>`を入力すると、呼び出しの結果を確認できます。やってみましょう！
 
-## More Compositions
+## コンポジションのさらなる探求
 
-Another easy to understand and out-of-the-box available composition methods is the `repeat`:
-`composer.repeat(count, task)` runs `task` `count` times.
+もう1つの簡単に理解でき汎用性のあるコンポジションのメソッドは`repeat`です。
+`composer.repeat(count, task)`により`count`回`task`が実行されます。
 
-Let's first define the composition (and store it in a file named `demo_repeat.js`):
+それではまず、コンポジションを定義します。(そして`demo_repeat.js`という名前のファイルに貯蔵します)
 
 ```javascript
 composer.repeat(5, 'task_repeat')
 ```
 
-Now, let's define the function `task_repeat` (to be stored in a file named `task_repeat.js`):
+さて、`task_repeat`という関数を定義しましょう。（`task_repeat.js`というファイルに貯蔵します。）
 
 ```javascript
 function main(params) {
@@ -1941,16 +1944,16 @@ function main(params) {
 }
 ```
 
-Notice that the output of each invocation serves as input for the next invocation.
+それぞれの呼び出しの出力結果が次の呼び出しを引き起こしています。
 
-Next, deploy the function and composition:
+次に、関数とコンポジションをデプロイします。
 
 <pre>
 $ fsh action create task_repeat task_repeat.js
 $ fsh app create demo_repeat demo_repeat.js
 </pre>
 
-Next, invoke the composition:
+そして、コンポジションを呼び出します。
 
 <pre>
 $ fsh app invoke demo_repeat -p count 10
@@ -1959,16 +1962,16 @@ $ fsh app invoke demo_repeat -p count 10
 }
 </pre>
 
-And finally, another easy to understand and out-of-the-box available composition methods is the `while`:
-`composer.while(condition, task)` runs `task` repeatedly while `condition` evaluates to true.
+さらに最後にもう1つ理解しやすく汎用的なコンポジションメソッド`while`をご紹介します。
+`composer.while(condition, task)`は`condition`がtrueである限り繰り返し`task`を実行します。
 
-Let's first define the composition (and store it in a file named `demo_while.js`):
+それではまずコンポジションを定義しましょう。（そしてそれを`demo_while.js`というファイルに貯蔵します）
 
 ```javascript
 composer.while('condition_while', 'task_while')
 ```
 
-Now, let's define the function `condition_while` (to be stored in a file named `condition_while.js`):
+それから`condition_while`関数を定義しましょう。(`condition_while.js`ファイルに格納します。)
 
 ```javascript
 function main(params) {
@@ -1982,7 +1985,7 @@ function main(params) {
 }
 ```
 
-Next, let's define the function `task_while` (to be stored in a file named `task_while.js`):
+次に、`task_while`関数を定義します。(`task_while.js`ファイルに格納します。)
 
 ```javascript
 function main(params) {
@@ -1993,7 +1996,7 @@ function main(params) {
 }
 ```
 
-Next, deploy the functions and composition:
+そして、関数とコンポジションをデプロイします。
 
 <pre>
 $ fsh action create condition_while condition_while.js
@@ -2001,7 +2004,7 @@ $ fsh action create task_while task_while.js
 $ fsh app create demo_while demo_while.js
 </pre>
 
-Next, invoke the composition:
+できたら、コンポジションを呼び出します。
 
 <pre>
 $ fsh app invoke demo_while -p count 10
@@ -2010,20 +2013,20 @@ $ fsh app invoke demo_while -p count 10
 }
 </pre>
 
-Notice that you may get a different result (count) due to the random number being relevant here.
+おそらく異なる結果（count）が出力されたでしょう。これは今回の場合は数字がランダムで排出されるからです。
 
-Once again, we recommend entering `fsh session get <session id>` again to visualize the results of the invocations.
+`fsh session get <session id>`で呼び出しの結果が確認できますので、ぜひ試してみてほしいと思います。
 
-An overview of all currently available compositions can be found here:
+現在利用できるコンポジションの総覧は下のリンクからご確認ください。
 https://github.com/ibm-functions/composer/tree/master/docs#compositions-by-example
 
-## Nesting and data-forwarding
+## ネスティングとデータ転送
 
-An important property of combinators is that they can be nested. This encourages modularity and reuse.
+コンビネータの重要な特徴は、それが入れ子になっていることです。これにより、コンビネータはモジュール性と再利用性を持ちます。
 
-Nesting and data-forwarding between nested compositions can best be explained along another example. Let's say you want to chain together two actions. The first action called `reverse` is supposed to reverse any *String* being handed over. The second action called `output` is supposed to dump the original (non-reverted) input *String* as well as the (reverted) *String*.
+ネスティングと入れ子になったコンポジションの間のデータ転送は別の例で説明することができます。もしあなたが2つのアクションを連携しようとしたとしましょう。1つ目のアクションは`reverse`といい、引き渡した *文字列* を元に戻すことができます。2つめのアクション`output`は元の(戻していない)入力 *文字列* を (戻した) *文字列* と同様にダンプします。
 
-The `task_reverse` action (to be stored in `task_reverse.js`) could look as follows:
+(`task_reverse.js`に格納された)`task_reverse`アクションは下のようにして確認できます。
 
 ```javascript
 function main(params) {
@@ -2031,7 +2034,7 @@ function main(params) {
 }
 ```
 
-The `task_output` action (to be stored in `task_output.js`) could look as follows:
+(`task_output.js`に格納された)`task_output`アクションは下記のようにして確認できます。
 
 ```javascript
 function main(params) {
@@ -2039,15 +2042,15 @@ function main(params) {
 }
 ```
 
-The composition to chain both actions together (to be stored in `demo_nesting.js`) could look as follows:
+(`demo_nesting.js`に格納された)2つのアクションを連携するコンポジションは下記のようにして確認できます。
 
 ```javascript
 composer.sequence('task_reverse', 'task_output')
 ```
 
-The `composer.sequence(task_1, task_2, ...)` composition runs a sequence of tasks (possibly empty). The input parameter object for the composition is the input parameter object of the first task in the sequence. The output parameter object of one task in the sequence is the input parameter object for the next task in the sequence. The output parameter object of the last task in the sequence is the output parameter object for the composition.
+`composer.sequence(task_1, task_2, ...)`というコンポジションは(空の)タスクのシーケンスを実行します。コンポジションの入力パラメータオブジェクトはシーケンスの最初のタスクの入力パラメータオブジェクトでもあります。シーケンスのあるタスクの出力パラメータオブジェクトは、シーケンスの次のタスクの入力パラメータオブジェクトでもあります。シーケンスの最後のタスクの酒強くパラメータオブジェクトはコンポジションの出力パラメータオブジェクトとなります。
 
-Now, let's deploy all artifacts:
+それでは全てのアーティファクトをデプロイしましょう
 
 <pre>
 $ fsh action create task_reverse task_reverse.js
@@ -2055,7 +2058,7 @@ $ fsh action create task_output task_output.js
 $ fsh app create demo_nesting demo_nesting.js
 </pre>
 
-Unfortunately, when invoking the composition we do not get really what we want:
+残念なことにコンポジションを呼び出しても欲しかった結果そのものを手に入れることはできません。
 
 <pre>
 fsh invoke demo_nesting -p input myText -r
@@ -2064,19 +2067,19 @@ fsh invoke demo_nesting -p input myText -r
 }
 </pre>
 
-It seems as if the sequencing (i.e. the nesting) itself works but the value of the initial input parameter is being lost.
-This is because the output of the `task_reverse` is only the reverted *String*; the initial input *String* gets indeed lost.
-Hence, what we need in addition to the sequencing as some data-forwarding capability.
+シーケンス(i.e. ネスティング)自体が機能しているように思えますが、初期入力パラメータの値は喪失しています。
+それは`task_reverse`の出力結果が戻された *文字列* であるがためです。初期入力 *文字列* は確かに喪失したのです。
+シーケンスに加えて必要なのはデータ転送です。
 
-This is what the `retain` composition is good for: `composer.retain(task[, flag])` runs `task` on the input parameter object producing an object with two fields `params` and `result` such that `params` is the input parameter object of the composition and `result` is the output parameter object of `task`.
+`retain`コンポジションがこの説明に良いのです。`composer.retain(task[, flag])`は、コンポジションの入力パラメータオブジェクト`params`と`task`の出力パラメータオブジェクトの`result`2つを生み出す、入力パラメータオブジェクトに乗った`task`を実行します。
 
-That being said let's change our composition like that:
+それではコンポジションをその形に書き換えてみましょう。
 
 ```javascript
 composer.sequence(composer.retain('task_reverse'), 'task_output')
 ```
 
-Let's change our `task_output` action like that:
+`task_output`もその形に直してみましょう。
 
 ```javascript
 function main(params) {
@@ -2084,17 +2087,17 @@ function main(params) {
 }
 ```
 
-Notice that the "first" `params` refers to the argument being passed to the `main` method.
-The "second" `params` results from the use of the `retain` composition and provides access to the initial `input` as well as the `result` of the invocation of the `task_reverse` action.
+"1つ目の"`params`は`main`メソッドに引き渡される実数に言及しています。
+”2つ目の"`params`は`retain`コンポジションの結果であり、`task_reverse`アクションの呼び出しの`結果`と同様に、最初の `入力`へのアクセスを許します。
 
-Let's update the artifacts:
+それではアーティファクトをアップデートしましょう。
 
 <pre>
 $ fsh action update task_output task_output.js
 $ fsh app update demo_nesting demo_nesting.js
 </pre>
 
-And try again:
+もう一度やってみます。
 
 <pre>
 fsh invoke demo_nesting -p input myText -r
@@ -2103,28 +2106,29 @@ fsh invoke demo_nesting -p input myText -r
 }
 </pre>
 
-Works like a charm.
 
-Once again, we recommend entering `fsh session get <session id>` again to visualize the results of the invocations.
+魔法みたいですね。
 
-## Inline coding
+`fsh session get <session id>`を入力して呼び出しの結果を視覚化すると良いでしょう。
 
-As said before it is not always necessary to define functions' code within separate files.
-Especially simple logic can always be defined inline.
+## インラインコーディング
 
-Let's define a composition (and store it in a file named `demo_inline.js`):
+前にお話ししたように、分かれたファイルの間で関数のコードを定義する必要は常にあるわけではありません。
+特に、簡単なロジックは常にインラインで定義されているものです。
+
+コンポジションを定義してみましょう。(そして`demo_inline.js`ファイルに格納しましょう)
 
 ```javascript
 composer.task(params => ({message: `Hello ${params.name}!`}))
 ```
 
-Then, deploy it:
+そしたらデプロイします。
 
 <pre>
 $ fsh app create demo_inline demo_inline.js
 </pre>
 
-Finally, let's simply invoke it:
+最後に簡単に呼び出します。
 
 <pre>
 fsh invoke demo_inline -p name Andreas -r
@@ -2133,57 +2137,57 @@ fsh invoke demo_inline -p name Andreas -r
 }
 </pre>
 
-To learn more about Composer visit: https://github.com/ibm-functions/composer
+Composerについてもっと学びたかったら次のURLを参考にしてください。: https://github.com/ibm-functions/composer
 
-# IBM App Connect & Message Hub
+# IBM App ConnectとMessage Hub
 
-*IBM App Connect* allows you to connect different applications to make your business more efficient. It allows you to set up automation flows to direct how events in one application trigger actions in another. It also allows you to map the information you want to share between them.
+*IBM App Connect* を使えばビジネスを効果的に進めるための異なるアプリケーションをつなぎ合わせることができます。それにより自動化フローがセットアップされ、どのように1つのアプリケーションのイベントが他のアクションを引き起こすかを示します。また、関連し合うアプリケーションで共有したい情報の配置もできます。
 
-*IBM Message Hub* is an *IBM Bluemix* managed *Apache Kafka*, a scalable, high-throughput message bus service for building real-time data pipelines and streaming applications. It allows you to wire together micro-services using open protocols, to connect stream data to analytics to realize powerful insights, to feed event data to multiple applications to react in real time. It allows you to bridge to your on-premise messaging infrastructure to create a hybrid cloud messaging solution.
+*IBM Message Hub* は *IBM Cloud PaaS* によって管理された *Apache Kafka* であり、リアルタイムのデータパイプラインとストリーミングアプリケーションを構築するスケーラブルではいスループットなサービスです。オープンプロトコルを使ったマイクロサービスをつなぎ合わせたり、強力な洞察を実現する分析とデータをつなぎ合わせたり、リアルタイムで処理をする複数のアプリケーションにデータを引き渡したりします。オンプレミスのメッセージングシステムとクラウドシステムの架け橋となり、ハイブリッドクラウドなメッセージングソリューションを構築します。
 
-In the following we will show you can use *App Connect* to post data to a dedicated *Message Hub* topic which then causes an OpenWhisk trigger to fire to invoke an action.
+この後は *App Connect* を使って、専有の *Message Hub* トピックにデータをポストして、アクションを呼び出すためのIBM Cloud Functionsのトリガーを起動する流れを実践します。
 
-First, let's set up a *Message Hub* instance and a topic:
+まず、 *Message Hub* インスタンスとトピックを立ち上げましょう。
+IBM Cloud Functions UI上の画面右上部の`カタログ`リンクをクリックします。(`パブリック・パッケージの参照`ではありません)
+画面左部のメニューにある`アプリケーション・サービス`を選択します。
+`Message Hub`をクリックします。
+設定はそのままにして右下部の`作成`をクリックします。
+`管理`タブに移動し、`+`アイコンをクリックして新しいトピックを作成します。トピック名を`openwhisk`とします。
+設定をそのままにして、`トピックの作成`ボタンをクリックします。
 
-From the OpenWhisk UI, click the `Catalog` (not the `Browse Public Packages`) link at the top right of the screen.  
-From the menu appearing on the left of the screen select `Application Services`.  
-Click `Message Hub`.  
-Leave all settings as they are and click the `Create` button at the bottom right of the screen.  
-Switch to the `Manage` tab and click the `+` icon to create a new topic. As topic name specify `openwhisk`.  
-Leave all other settings as they are and click the `Create topic` button.
+次に、 *App Connect* インスタンスを立ち上げます。
+新しいブラウザタブを立ち上げます。
+IBM Cloud Functions UI上の画面右上部の`カタログ`リンクをクリックします。(`パブリック・パッケージの参照`ではありません)
+画面左部のメニューにある`インテグレーション`を選択します。
+`App Connect`をクリックします。
+設定をそのままにして、画面右下部の`トピックの作成`ボタンをクリックします。
 
-Second, let's set up an *App Connect* instance:  
-Open a new browser tab.  
-From the OpenWhisk UI, click the `Catalog` (not the `Browse Public Packages`) link at the top right of the screen.  
-From the menu appearing on the left of the screen select `Integrate`.  
-Click `App Connect`.  
-Leave all settings as they are and click the `Create` button at the bottom right of the screen.
+それでは *Salesforce* のテストアカウントにサインアップして、新しいコンタクトが作成されたのと程なくして *App Connect* から *Message Hub* に何かをPOSTさせましょう。(そして、IBM Cloud Functionsのトリガーを起動し、アクションを呼び出しましょう)
 
-Now, sign-up for a *Salesforce* test account as we would like *App Connect* to post something to *Message Hub* (then causing the OpenWhisk trigger to fire and the action to be invoked) as soon as a new contact is being created:
+新しいブラウザタブを開き、https://www.salesforce.com/form/signup/freetrial-sales.jsp にアクセスしてください。  
+右側の欄を埋め、`無料トライアルにサインアップ`ボタンをクリックします。
 
-Open a new browser tab and navigate to https://www.salesforce.com/form/signup/freetrial-sales.jsp  
-Fill out all fields shown on the right-hand side and click the `Start free trial` button.
+*App Connect* インスタンスのブラウザタブに戻ります。(もし閉じてしまっていたら、もう一度`カタログ`をクリックし、画面左部の`ハンバーガ`(三本線)アイコンをクリックし、`ダッシュボード`を選択します。）
+必要であれば、`Launch App Connect`ボタンをクリックし、次に出てくる案内はskipします。
+`New`ボタンをクリックし、`Create an event-driven flow`ボタンを選択します。
+`Salesforce`をクリックし、Contact内の`New Contact`を選択します。
+`Connect`を選択した後、`Connect to Salesforce`ボタンをクリックします。
+ログインしたあと新しいブラウザタブに出てくる`許可`ボタンをクリックします。
+*App Connect* に戻り、フローに`Message Hub`の`Send Message`をクリックして加えます。
+`Connect`ボタンをクリックします。
+*Message Hub* インスタンスを表示しているブラウザタブに戻ります。(もし閉じてしまっていたら、もう一度`カタログ`をクリックし、画面左部の`ハンバーガ`(三本線)アイコンをクリックし、`ダッシュボード`を選択します。）
+`サービス資格情報`タブに移動し、`資格情報の表示`リンクをクリックします。
+表示されている *JSON* をコピーするためのアイコンをクリックします。
+次に、*App Connect* が表示されているブラウザタブに戻り、先ほどコピーした *JSON* を全て`Message Hub Service Credentials`と書かれた欄に貼り付け、`Connect`ボタンをクリックします。
+Topicに`openwhisk`を指定します。
+payloadとして、(入力欄の隣のお助けアイコンをクリックしたあと)インスタンスの`lastname`を選択します。
+最後に、画面右上部の`Exit and switch onボタン`をクリックします。
 
-Navigate back to the browser tab showing your *App Connect* instance (if you do not have it anymore, click `Catalog` again, then, click the `hamburger` icon at the very left of the screen select `Apps` and then `Dashboard`).  
-If necessary click the `Launch App Connect` button and skip the dialogs offering initial help.  
-Click the `New` button and select `Create an event-driven flow` button.  
-Click `Salesforce` and `New Contact`.  
-Click the `Connect to Salesforce` button.  
-In the new browser tab appearing click the `Allow` button.  
-Back in the *App Connect* view click `Message Hub` and `Send Message`.  
-Click the `Connect to Message Hub` button.  
-Now, navigate back to the browser tab showing your *Message Hub* instance (if you do not have it anymore, click `Catalog` again, then, click the `hamburger` icon at the very left of the screen select `Services` and then `Dashboard`).  
-Switch to the `Service Credentials` tab and click the `View Credentials` link.  
-Click the icon that allows you to copy the entire *JSON* being shown.  
-Next, navigate back to the browser tab showing your *App Connect* instance and paste the entire *JSON* you have just copied into the field labeled `Message Hub Service Credentials` and click the `Connect` button.  
-As topic specify `openwhisk`.  
-As payload select (after having clicked the little helper icon next to the input field) `lastname` for instance.  
-Finally, click the `Exit and switch on button` at the top right of the screen.  
+それでは先ほど作成した *Message Hub* トピックにPOSTがあったら必ずトリガーが起動するようにしましょう。
 
-Now, let's make sure a trigger fires whenever something is being posted to the *Message Hub* topic we just created:
+IBM Cloud Functions UIの開発タブに移りましょう。
+新しいアクション(`newContact`という名前にしてください)を作成し、下のコードを貼り付けてください。
 
-In the OpenWhisk UI switch to the Develop tab if not already there.  
-Create a new action (name it `newContact`) the way you learned it before containing the following code:
 
 ```javascript
 function main(params) {
@@ -2191,22 +2195,22 @@ function main(params) {
 }
 ```
 
-Click the `Automate this Action` button at the bottom right of the screen to make sure it gets fired by a trigger.  
-Click `Messaging`.  
-Click `New Trigger`.  
-Provide all the details being asked for (which you can get by navigating back to the browser tab showing your *Message Hub* instance and having a look at the service credentials).  
-Click the `Save Configuration` button.  
-Click the `This Looks Good` and the `Save Rule` buttons.  
-Finally, switch to the `Monitor` tab to see what's going on.  
+右下部にある`このアクションを自動化`ボタンをクリックし、トリガーにより起動するようにしてください。
+`Messaging`をクリックします。
+`新規トリガー`をクリックします。
+*Message Hub* インスタンスのサービス資格情報を見て当てはまる情報を入力してください。
+`構成の保存`ボタンをクリックします。
+`これは適切なようです`と`ルールの保存`をクリックします。
+最後に、UIの`モニター`タブに移り起こっていることを確認します。
 
-Navigate back to the browser tab showing the *Salesforce* application.  
-From the main menu click `Contacts`.  
-Click the `New` button at the top right of the screen.  
-Provide at least a `given` and `family name` and click `Save`.  
+*Salesforce* のブラウザタブに戻ります。
+メインメニューの`商談`をクリックします。
+画面右上部の`新規`ボタンをクリックします。
+少なくとも`商談名`と`取引先名`をクリックして`保存`をクリックします。
 
-When navigating back to the OpenWhisk UI monitoring should reveal that the action we just created has been invoked with information about the *Salesforce* contact that has just been created.
+IBM Cloud Functions UIモニターに戻ったら、先ほど作成したアクションが、先ほど作成した *Salesforce* 上の商談の情報を以って呼び出されたことがわかるでしょう。
 
-To summarize, the App Connect flow took care of posting to a dedicated *Message Hub* topic once a new *Salesforce* contact has been created. That caused the OpenWhisk Messaging trigger to fire which caused the associated action to be invoked.
+要約すれば、App Connectフローによって、新規の *Salesforce* 上の商談が作成されたら、専有の *Message Hub* のトピックへPOSTするようになったということです。それにより、IBM Cloud functionsのトリガーが起動しアクションが呼び出されたということなのです。
 
 # Special fuel for your engine!
 
@@ -2480,41 +2484,41 @@ You can learn more about using the *Serverless Framework* here: https://github.c
 
 At this point it may be a good exercise to package together the previously implemented weather services using the *Serverless Framework* – we leave this as a voluntary exercise for you.
 
-# Node-RED and OpenWhisk
+# Node-REDとIBM Cloud Functions
 
-Especially IoT (Internet of Things) applications are often held up as a great use-case for serverless platforms.
+IoTアプリケーションはサーバーレスプラットホームの殊に素晴らしいユースケースになりえます。
 
-Serverless platforms are ideally suited to building solutions for the IoT. IoT applications are inherently event-driven and come with unpredictable traffic patterns. Often, applications involve listening for data from externally connected devices and passing it through to an internally data store after applying some transformations.
+サーバーレスはIoTソリューションを構築するのに実に適切です。IoTアプリケーションは元々イベントドリブン型であり、予想ができないトラフィックパターンを持ちます。IoTではアプリケーションはしばしば接続された外部デバイスからデータを聞き出し、処理をかけた後に内部のデータストアに引き渡します。
 
-In this section, we're going to look at using a popular open-source tool for integrating IoT devices, APIs and online services with OpenWhisk.
+このセクションでは、IoTデバイスやAPIやオンラインサービスをIBM Cloud Functionsと連携するために、有名なオープンソースツールを用います。
 
-*Node-RED* describes itself as a "visual tool for wiring the Internet Of Things". It comes with a browser-based editor that allows you to visually build up "message flows", connecting devices to online APIs and services. Once the message flow has been developed, developers can deploy that flow to the backend service to make it live. *Node-RED* represents devices, online services and APIs as individual "nodes". The tool has a huge community of 3rd nodes for almost every kind of hardware device, APIs and third-party services.
+*Node-RED* は「IoTを結び合せるビジュアルツール」と自身を表現しています。ブラウザベースのエディタで、視覚的に「メッセージフロー」を構築してデバイスとオンラインのAPIやサービスを接続できます。一度メッセージフローが構築されれば、開発者はバックエンドサービスにそのフローをデプロイし起動させることができます。 *Node-RED* はデバイスやオンラインサービスやAPIを個別の「ノード」として表現します。サードパーティによるノードコミュニティが形成されており、ほとんどすべてのハードウェアデバイスやAPIやサードパーティサービスに対応できます。
 
-OpenWhisk recently released nodes for *Node-RED* to represent actions and triggers. These nodes allow to create and invoke those resources through the *Node-RED* runtime. Using *Node-RED* with the OpenWhisk nodes allows you to easily build IoT applications that integrate with a serverless platform.
+IBM Cloud Functionsはアクションやトリガーを起動するための *Node-RED* 向けのノードを提供しています。これらのノードによって *Node-RED* のランタイムを通してリソースを作成したり呼び出したりできます。 *Node-RED* をIBM Cloud Functionsノードと共に使うと、サーバレスプラットフォームと連携されたIoTアプリケーションを簡単に構築できます。
 
-## Installing Node-RED
+## Node-REDのインストール
 
-Let's start by getting *Node-RED* installed locally.
+まずは *Node-RED* ローカル環境にインストールすることから始めましょう。
 
-Notice that *Node-RED* uses the `Node.js` runtime and the `Node Package Manager` to allow developers to install the tool as a command-line utility. If you haven't got Node.js installed locally, please get the environment running first (https://nodejs.org/en/).
+*Node-RED* は開発者がコマンドラインユーティリティとしてツールをインストールするのに`Node.js`ランタイムと`Node Package Manager`を用いています。もしNode.jsをローカル環境にインストールしていなければ、まずは環境を整えることから始めましょう(https://nodejs.org/en/)。
 
-Running this command will install *Node-RED* as a command-line utility available to all users:
+以下のコマンドを実行し *Node-RED* をすべてのユーザーが利用可能なコマンドラインユーティリティとしてインストールしましょう。
 
 <pre>
 $ npm install -g node-red
 </pre>
 
-This command will take a while to install *Node-RED* with all its dependencies. `npm` will generate lots of log messages during this process but this is normal. If the command finishes without an error, we can start to use the application.
+このコマンドを実行して *Node-RED* とそれに全依存物をインストールするにはしばらく時間が必要です。`npm`はこのプロセスの間に多くのログメッセージを生成するでしょうがそれで通常です。エラーなくコマンドが実行終了すれば、このアプリケーションを利用開始できます。
 
-## Starting Node-RED
+## Node-REDの開始
 
-Once *Node-RED* is installed, the tool can be started with the following command:
+*Node-RED* がインストールされれば、以下のコマンドで開始できます。
 
 <pre>
 $ node-red
 </pre>
 
-You should see the following output:
+すると以下のメッセージが出力されます。
 
 <pre>
 Welcome to Node-RED
@@ -2531,203 +2535,205 @@ Welcome to Node-RED
 24 Oct 10:33:01 - [info] Started flows
 </pre>
 
-Once you have started *Node-RED*, the server is running on port 1880.  
-Open a web browser and visit the following URL to open the editor: http://localhost:1880
+*Node-RED* を開始すると、サーバが1880番ポートで起動します。
+ウェブブラウザを開き、次のURLを入力してエディタを開きましょう。http://localhost:1880
 
-*Nodes* are available in the palette on the left-hand side of the screen. Users build "message flows" by dragging the nodes from the left-hand panel and dropping them on the grid. Nodes on the grid can be connected together with "wires" to exchange messages.
+*ノード* は画面左部のパレットにあります。ユーザーは画面左部のノードをドラッグ＆ドロップしてグリッドの上に置いて「メッセージフロー」を構築します。グリッド上のノードは「ワイヤー」で接続されメッセージを交換し合います。
 
-Notice that if you want more documentation for *Node-RED*, the project website has excellent information here: http://nodered.org/docs/
+*Node-RED* に関するドキュメントがもっと欲しければ、プロジェクトのウェブサイトを参照してください。http://nodered.org/docs/
 
-## "Hello World" with Node-RED
+## Node-REDで"Hello World"
 
-Let's start by building a "Hello World" example to get you started:
+それでは”Hello World"サンプルからまずは始めてみましょう。
 
-### Add an Inject node
+### Injectノードの追加
+`Inject`ノードはフローにinjectメッセージを加えます。ノード上のボタンを押すか入力の間隔をセットすることで起動します。
 
-The `Inject` node allows you to inject messages into a flow, either by clicking the button on the node, or setting a time interval between injects.
+パレットからワークスペースにノードを1つドラッグします。
+サイドバーを開き(`Ctrl+Space`またはドロップダウンメニューで開きます)、`情報`タブを選択します。
+新規に追加した`Inject`ノードを選択肢、プロパティ情報やその機能の詳細を確認します。
 
-Drag one onto the workspace from the palette.  
-Next, open the sidebar (`Ctrl-Space`, or via the dropdown menu) and select the `Info` tab.  
-Then, select the newly added `Inject` node to see information about its properties and a description of what it does.
+### Debugノードの追加
 
-### Add a Debug node
+`Debug`ノードはデバッグサイドバーにあらゆるメッセージを表示します。デフォルト状態ではメッセージのペイロードを表示するだけですが、メッセージオブジェクトをすべて表示することも可能です。
 
-The `Debug` node causes any message to be displayed in the debug sidebar. By default, it just displays the payload of the message, but it is possible to display the entire message object.
+パレットからDebugノードを1つワークスペースにドラッグしましょう。
 
-Drag one onto the workspace from the palette.
+### ノードの連結
 
-### Wire the two together
+`Inject`ノードと`Debug`ノードをその出力ポートと入力ポートをドラッグでつなぐことで連結しましょう。
 
-Connect the `Inject` and `Debug` nodes together by dragging between the output port of one to the input port of the other.
+### デプロイ
 
-### Deploy
+この状態ではノードはエディタ上に存在しているだけなので、これをサーバにデプロイする必要があります。
+`デプロイ`ボタンをクリックします。シンプルでしょう？
 
-At this point, the nodes only exist in the editor and must be deployed to the server.  
-Therefore, click the `Deploy` button - simple as that.
+デバッグサイドバータブを選択し、(Injectノードの左に飛び出ている)`Inject`ボタンをクリックします。サイドバーに数字が出てくるでしょう。デフォルト状態では、`Inject`ノードはペイロードとして1970年1月1日から何ミリ秒経過したかを表示します。ここからはより有用なことに挑戦してみましょう。
 
-With the debug sidebar tab selected, click the (little left rectangle of the) `Inject` button. You should see numbers appear in the sidebar. By default, the `Inject` node uses the number of milliseconds since January 1st, 1970 as its payload. Let's do something more useful with that.
+### Functionノードの追加
 
-### Add a Function node
+`Function`ノードは *JavaScript* 関数を通してメッセージを引き渡します。
 
-The `Function` node allows you to pass each message though a *JavaScript* function.
+`Function`ノードを`Inject`ノードと`Debug`ノードの間に配置し接続します。(キーボード上の`delete`キーを押し)既存のワイヤを削除します。
 
-Wire the `Function` node in between the `Inject` and `Debug` nodes. You may need to delete the existing wire (select it and hit `delete` on the keyboard).
-
-Next, double-click on the `Function` node to bring up the edit dialog.  
-Copy the following code into the function field:
+次に`Function`ノードをダブルクリックして編集ダイアログを開きます。
+次のコードを関数フィールドにコピーします。
 
 ```javascript
 // Create a Date object from the payload
-var date = new Date(params.payload);
+var date = new Date(msg.payload);
 // Change the payload to be a formatted Date string
-params.payload = date.toString();
+msg.payload = date.toString();
 // Return the message so it can be sent on
-return params;
+return msg;
 ```
 
-Next, click `Done` button to close the edit dialog and then click the `Deploy` button.   
-Now, when you click the `Inject` button again, the messages in the sidebar will be more readable time stamps.
+次に`完了`ボタンをクリックして編集ダイアログを閉じ、`デプロイ`ボタンをクリックします。
+もう一度`Inject`ボタンをクリックすれば、スライドバーのメッセージはより読み取りしやすいタイムスタンプになるでしょう。
 
-That example should give you an idea about how to use the editor to connect nodes together to build flows and deploy them to the *Node-RED* runtime.
+この例でどのようにエディタを用いてノードを接続し、フローを構築して *Node-RED* ランタイムにデプロイできるかがわかったでしょう。
 
-Feel free to have a play around with the other nodes in the palette and build more complex flows.
+パレット内の他のノードを自由に使い、より複雑なフローを構築してみましょう。
 
-## Adding Nodes to Node-RED
+## Node-REDにノードを追加
 
-Node-RED has a huge community of external developers who publish nodes for connecting to thousands of 3rd party devices, APIs and online services.
+Node-REDには何千ものサードパーティデバイスやAPIやオンラインサービスと接続するためのノードを発行した外部開発者による巨大コミュニティがあります。
 
-This website catalogues all the available nodes: http://flows.nodered.org/
+このウェブサイトには全てのノードが収蔵されています。http://flows.nodered.org/
 
-Let's look at installing the OpenWhisk nodes into *Node-RED*:  
-If you type `openwhisk` into the search box, we see there are two entities that can be installed.
+IBM Cloud functionsノードを *Node-RED* にインストールしましょう。
+検索バーに`openwhisk`と入力すると、2つのインストール可能なエンティティが表示されます。
 
-We want to install the result named `node-red-node-openwhisk`, which contains the officially supported OpenWhisk nodes for *Node-RED*.
+公式サポートされた *Node-RED* 用のIBM Cloud Functionsノードが入った`node-red-node-openwhisk`をインストールします。
 
-So, if you go back into the *Node-RED* editor and click the menu icon in the top-right of the screen, it presents a menu including the `Manage palette` item.
-Selecting this option will bring up the node installation dialoge in the left-hand panel. This panel shows you the list of installed nodes and also allows you to install extra nodes. We're going to use this to install the OpenWhisk nodes.
+*Node-RED* エディタに戻り、画面右上部のメニューアイコンをクリックし、`パレットの管理`をクリックします。
+画面左側にノードをインストールするためのダイアログが表示されます。この画面にはインストール済みのノードとインストール可能な外部ノードが表示されます。これを使ってIBM Cloud Functionsのノードをインストールします。
 
-Select the `Install` tab and type in `node-red-node-openwhisk`.  
-Click the `install` button.
+パレットの`ノードを追加`タブを選択し、`node-red-node-openwhisk`と入力します。
+`ノードを追加`ボタンをクリックします。
 
-Now, once you return to the main palette menu, you should see the OpenWhisk nodes.
+メインパレットメニューに戻れば、IBM Cloud Functions(Openwhisk)ノードが追加されていることがわかるでしょう。
 
-### Invoking OpenWhisk actions from Node-RED
+### Node-REDからIBM Cloud Functionsアクションを呼び出し
 
-Now that we have the nodes installed, let's start by creating a flow which invokes an OpenWhisk action:
+ノードがインストールできたので、IBM Cloud Functionsアクションを呼び出すフローを作成しましょう。
 
-First, drag the OpenWhisk `action` node onto the flow panel.  
-Make sure you drag the `action` node (not the `trigger` node) that has both input and output ports. The input port receives messages that triggers the action and (optionally) passes in parameters for the invocation. The output port returns the activation response message.
+まず、Openwhisk `action`ノードをフローパネルに配置します。
+必ず(`trigger`ノードではなく)入力ポートと出力ポートを有している`action`ノードをドラッグしてください。入力ポートはアクションを引き起こすメッセージを受け取り、(必要に応じて)呼び出しのためのパラメータを引き渡します。出力ポートはアクティベーションのレスポンスメッセージを返します。
 
-Next, double-click the node icon to open the editor panel.  
-This editor panel allows us to define the name and namespace for the action to invoke when messages are received on the flow. These parameters can be overridden at runtime by passing parameters in as properties on the message object.
+次にノードをダブルクリックし、編集パネルを開きます。
+この編集パネルではフローにメッセージが達した時にアクションが呼び出されるためのアクションの名前とnamespaceを定義できます。これらのパラメータはメッセージオブジェクトのプロパティとしてパラメータを引き渡すことによりランタイムで無効化できます。
 
-But, before we can invoke the action, we need to setup the OpenWhisk platform that *Node-RED* will talk to.
+しかし、アクションを呼び出す前に、 *Node-RED* が通信するためのIBM Cloud Functionsプラットホームを準備しましょう。
 
-Click on the `pencil` icon next to the service configuration drop-down:
+Service設定用ドロップダウンの横の`鉛筆`アイコンをクリックします。
 
-Fill in the form with the following details:
+フォームに以下の情報を埋めます。
 * `API URL`: `https://openwhisk.ng.bluemix.net/api/v1`
-* `Auth Key`: Once again the auth key you can obtain when clicking Use the CLI (https://console.ng.bluemix.net/openwhisk/cli)
+* `Auth Key`: 認証キーはUse the CLIをクリックすれば確認できます。 (https://console.ng.bluemix.net/openwhisk/cli)
 * `Name`: `OpenWhisk`
 
-Finally, click the `Add` button to add this service to *Node-RED*.
+`追加`をクリックして、このサービスを *Node-RED* に追加します。
 
-Now, we can fill in the `action name` and `namespace` values (which you can, once again, obtain when clicking Use the CLI) for the action we want to invoke.  
-Let's try it with the `hello` action you defined in the previous exercises.  
-Then, once again, add an `Inject` node and a `Debug` node to the flow grid (unless you still have them because you haven't deleted them earlier). Wire up both nodes to the OpenWhisk action node.  
-Then, deploy the flow using the `Deploy` button on the top-right hand corner.  
-Now, once you click the `Inject` node a few times, it should trigger our action and print the results of the invocation to the debug panel:
+これで呼び出したいアクションの`action名`と`namespace`の値を埋められます(Use the CLIをクリックで確認できます。)。
+これまでに作成した`hello`アクションを使いましょう。
+
+そうしたら、もう一度(先ほどのものを削除していたら)`Inject`ノードと`Debug`ノードをフローグリッドに追加します。その間にIBM Cloud Functionsノードを配置し接続します。
+それから画面右上部の`デプロイ`ボタンｗ押してフローをデプロイします。
+`Inject`ノードをいくらかクリックすれば、アクションを引き起こし、呼び出し結果がデバッグパネルに反映されるでしょう。
 
 <pre>
 {"message: "Hello, undefined from undefined"}
 </pre>
 
-Next, let's update the flow to include a `name` parameter in the incoming message generated by the `Inject` node. Therefore, open the `Inject` node's editor panel and change the payload type to *JSON*.
+次に`Inject`ノードで生成された入力メッセージに`name`パラメータを加えるためにフローをアップデートしましょう。`Inject`ノードの編集パネルを開きペイロードのタイプを *JSON* に変えましょう。
 
-Add the following field value:
+以下の値を追加します。
 
 <pre>
 {"name": "Bernie"}
 </pre>
 
-Now, save the `Inject` node configuration, deploy the flow and try injecting a few messages again. It should return the response message with the name `Bernie Sanders` included in the greeting:
+`Inject`ノードの設定を保存し、デプロイしたら、また何度かInjectメッセージを入力します。`Barnie Sanders`という名前を伴うメッセージが返ってくるでしょう。
 
 <pre>
 {"message: "Hello, Bernie from undefined"}
 </pre>
 
-Hopefully that worked fine, so add a parameter for `place` on your own before you move onto firing triggers using *Node-RED*.
+幸運にもうまく動いたようです。 *Node-RED* を使ったトリガーの起動に移る前にあなた自身の`place`の情報をパラメータに加えてみてはどうでしょう？
 
-## Invoking OpenWhisk Triggers from NodeRED
+## Node-REDからのFunctionsトリガーの呼び出し
 
-Drag the OpenWhisk `Trigger` node onto the flow panel.
+OpenWhisk`トリガー`ノードをフローパネルにドラッグします。
 
-The `Trigger` node has a single input port which receives messages that fires the trigger and (optionally) passes in parameters for the invocation.
+`トリガー`ノードは入力ポートのみを有し、トリガーを起動するメッセージを受け取って、(必要に応じて)呼び出しのためのパラメータを引き渡します。
 
-Now, double-click the node icon to open the editor panel.  
-This editor panel allows us to define the `name` and `namespace` for the trigger to fire when messages are received on the flow. These parameters can be overridden at runtime by passing parameters in as properties on the message object.  
-Once again, we can fill in the `service`, `name` and `namespace` values for the trigger we want to invoke. Since we have already setup the service credentials for OpenWhisk in the previous task, we don't need to this again.
+さあ、ノードをダブルクリックし、編集パネルを開きましょう。
+この編集パネルでは、メッセージがフローに達した際にトリガーを起動するための`name`と`namespace`を定義できます。これらのパラメータは、パラメータをメッセージオブジェクトのプロパティとして引き渡すことでランタイムでは無効化されます。
 
-Let's try it with the `locationUpdate` trigger you defined in the previous exercises:
+繰り返しになりますが、ここでは呼び出したいトリガーの`service`、`name`、`namespace`を埋めることができます。すでにIBM Cloud Functionsのサービス資格情報を設定していますから、ここはもう一度設定する必要はありません。
 
-First, save your node configuration before returning to the flow editor screen.  
-Next, connect the `Inject` node on the screen to the `trigger` node you have just created.  
-Next, deploy the flow using the `Deploy` button on the top-right hand corner.  
-Now, test out this new invocation by clicking the `Inject` node a few times.
+これまでに作成した`locationUpadate`トリガーを使っていきましょう。
 
-If you check the invocation logs using the `wsk` command-line utility, do you see the activations appear?
+まず、フローエディタ画面に戻る前にノードの設定を保存します。
+画面上の`Inject`ノードと今作成した`トリガー`ノードを接続します。
+画面右上部の`デプロイ`ボタンをクリックしてデプロイします。
+`Inject`ノードを数回クリックし、この新しい呼び出しをテストします。
 
-### Creating New OpenWhisk Actions from Node-RED
+`wsk`コマンドラインユーティリティを用い、呼び出しログをチェックしてみてください。アクティベーションは現れたでしょうか？
 
-The OpenWhisk nodes also allow you to define new actions through the *Node-RED* editor panels. Using the code editor within the configuration panel, you can create and update the source for existing and new actions.
+### 新規IBM Cloud FunctionsアクションをNode-REDから作成
 
-Let's try updating the source code for our existing `hello` action:
+IBM Cloud Functionsのノードを使えば、 *Node-RED* の編集パネルを通して新たなアクションを定義できます。設定パネル内のコードエディタを用い、既存/新規のアクションのソースを作成/アップデートできます。
 
-First, double-click the OpenWhisk `action` node to reveal the editor panel.  
-The source code for the action should automatically be displayed.  
-Next, let's change the greeting string that the action returns.  
-Therefore, select the `Allow Edits` checkbox.  
-Modify the greeting string to be:
+既存の`hello`アクションを用い、ソースコードのアップデートをしましょう。
+
+まず、OpenWhisk `action`ノードをダブルクリックし、編集パネルを開きましょう。
+アクションのソースコードが自動的に映し出されます。
+次に、アクションが返すgreeting文字列を変えましょう。
+`Allow Edits`のチェックボックスを選択します。
+greeting文字列を以下のように編集します。
 
 <pre>
 "Salutations " + params.name + "!"
 </pre>
 
-Now, add a new parameter with `key` (`name`) and `value` (`Donald`).  
-Next, click `Done` to save your changes.  
-Before we update the flow, let's set the payload of the `Inject` node back to timestamp, so that the action uses the default parameter.  
-Finally, once you have done this, deploy the flow and check out the results in the console. This time it should return us the new message with the update greeting and default parameter.
+さあ、新たに`key`(`name`)と`value`(`Donald`)のパラメータを追加します。
+次に、`完了`をクリックして、変更を保存します。
+フローをアップデートする前に、`Inject`ノードのペイロードをタイムスタンプに変更し直して、アクションがデフォルトのパラメータを使えるようにしましょう。
+一度これを完了すれば、フローをデプロイしコンソール上の結果を持ち出せます。今回は、アップデートされたgreetingとデフォルトのパラメータを用いた新しいメッセージが返されることでしょう。
 
-# The coolest engines out there!
+# イケてるアプリは目前に!
 
-At this point in time we would like to show you four publicly available samples illustrating what you can build with OpenWhisk.
+ここからは4つの一般に利用可能なIBM Cloud Functionsでなにができるかを示したサンプルをご紹介します。
 
 ## Vision App
 
-Details about Vision App can be found here:  
+Vision Appの詳細はこちら。
 https://github.com/IBM-Bluemix/openwhisk-visionapp
 
-Vision App is a sample iOS application to automatically tag images and detect faces by using IBM visual recognition technologies. It allows you to take a photo or select an existing picture to let the application generate a list of tags and detect people, buildings, objects in the picture. It then allows you to share the results with your (social) network.
+Vision AppはiOSアプリのサンプルで、IBM Visual Recognitionの技術を用いて、自動的にイメージにタグ付けしたり顔認識をしたりします。
+これを使えば、撮影したばかりの写真や既存のイメージを使って、アプリケーション上で、タグのリストを作ったり、写真上の人や建造物や物体を特定したりすることができます。そしてその結果をSNSでシェアすることができます。
 
 ## Dark Vision
 
-Details about Dark Vision can be found here:  
+Dark Visionの詳細はこちら。
 https://github.com/IBM-Bluemix/openwhisk-darkvisionapp
 
-Dark Vision processes videos to discover dark data. By analyzing video frames with IBM Watson Visual Recognition, Dark Vision builds a summary with a set of tags and famous people or building detected in the video. Use this summary to enhance video search and categorization.
+Dark Visionは映像のダークデータを探し出します。IBM Watson Visual Recognitionを用いてビデオのフレームを分析し、タグや映像上の有名人や建造物を使って映像のサマリーを作ります。このサマリーによって、映像を見つけ出したりカテゴリー分けしたりすることが容易になります。
 
 ## Skylink
 
-Details about Skylink can be found here:  
+Skylinkの詳細はこちら。
 https://github.com/IBM-Bluemix/skylink
 
-Skylink is a sample application that lets you connect a DJI drone aircraft to the *IBM Cloud* with near realtime image analysis leveraging *IBM Cloudant, OpenWhisk, IBM Watson, and Alchemy Vision*.
+Skylinkを使えばDJIドローンを *IBM Cloud* に連携し、*IBM Cloudant, IBM Cloud Functions, IBM Watson, Alchemy Vision* などを用いて、リアルタイムに近いイメージ分析を行うことができます。
 
-# Learning more
+# もっと知りたい！
 
-Important resources:
+こちらのリソースからIBM Cloud Functionsの知識をより深めることができます。
 
-* IBM Cloud Functions: https://www.ibm.com/cloud-computing/bluemix/de/openwhisk
+* IBM Cloud Functions: https://www.ibm.com/cloud/functions
 * Apache OpenWhisk: http://openwhisk.org
 * OpenWhisk on Github: https://github.com/openwhisk/openwhisk/
 * OpenWhisk on Twitter: https://twitter.com/openwhisk
