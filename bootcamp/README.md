@@ -50,8 +50,8 @@
   * [Inline coding](#inline-coding)
 - [IBM App Connect & Message Hub](#ibm-app-connect---message-hub)
 - [Special fuel for your engine!](#special-fuel-for-your-engine-)
-  * [Developing with VS Code](#developing-with-vs-code)
-  * [Developing with the Serverless Framework](#developing-with-the-serverless-framework)
+  * [VS Codeとの開発](#developing-with-vs-code)
+  * [Serverless Frameworkで開発する](#developing-with-the-serverless-framework)
     + [Installing the Serverless Framework](#installing-the-serverless-framework)
     + [Working with Actions](#working-with-actions)
     + [Working with Sequences](#working-with-sequences)
@@ -2210,7 +2210,7 @@ To summarize, the App Connect flow took care of posting to a dedicated *Message 
 
 # Special fuel for your engine!
 
-OpenWhiskはまた、他の（サードパーティの）ツールと統合して、開発者に素晴らしいエクスペリエンスを提供します。 以下では、２つの簡単なサンプルで統合を実証します。。
+OpenWhiskはまた、他の（サードパーティの）ツールと統合して、開発者に素晴らしいエクスペリエンスを提供します。 以下では、２つの簡単なサンプルで統合を実証します。
 
 ## VS Codeとの開発
 
