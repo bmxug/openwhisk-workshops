@@ -1,7 +1,7 @@
 # Table of Contents
 
 - [Preface](#preface)
-- [Serverless Computing](#serverless-computing)
+- [サーバーレスコンピューティング](#サーバーレスコンピューティング)
 - [環境の準備](#prepare-your-engines-)
 - [サーバーレスをはじめよう!](#start-your-engines-)
   * [アクション](#actions)
@@ -27,14 +27,14 @@
   * [トリガー](#triggers)
   * [ルール](#rules)
   * [モニタリング](#monitoring)
-- [Build a weather engine!](#build-a-weather-engine-)
-  * [Address to locations service](#address-to-locations-service)
-  * [Forecast from location service](#forecast-from-location-service)
-  * [Sending messages to Slack](#sending-messages-to-slack)
-  * [Creating the weather bot using sequences](#creating-the-weather-bot-using-sequences)
-  * [Bot forecasts](#bot-forecasts)
-  * [Connecting to triggers](#connecting-to-triggers)
-  * [Morning forecasts](#morning-forecasts)
+- [天気予報エンジンを作る！](#天気予報エンジンを作る)
+  * [住所を位置情報へ](#住所を位置情報へ)
+  * [位置情報からの予測](#位置情報からの予測)
+  * [Slackへのメッセージ送信](#slackへのメッセージ送信)
+  * [シーケンスを利用してお天気ボットを作成する](#シーケンスを利用してお天気ボットを作成する)
+  * [ボットの予報](#ボットの予報)
+  * [トリガーに接続する](#トリガーに接続する)
+  * [朝の予報](#朝の予報)
 - [Build a serverless microservice backend!](#build-a-serverless-microservice-backend-)
   * [Your first API](#your-first-api)
     + [Mapping actions to endpoints](#mapping-actions-to-endpoints)
@@ -50,8 +50,8 @@
   * [Inline coding](#inline-coding)
 - [IBM App Connect & Message Hub](#ibm-app-connect---message-hub)
 - [Special fuel for your engine!](#special-fuel-for-your-engine-)
-  * [Developing with VS Code](#developing-with-vs-code)
-  * [Developing with the Serverless Framework](#developing-with-the-serverless-framework)
+  * [VS Codeとの開発](#vs-codeとの開発)
+  * [Serverless Frameworkで開発する](#serverless-frameworkで開発する)
     + [Installing the Serverless Framework](#installing-the-serverless-framework)
     + [Working with Actions](#working-with-actions)
     + [Working with Sequences](#working-with-sequences)
@@ -97,22 +97,22 @@ We wish you a lot of fun and success...
 スケーラビリティ、高可用性、インフラストラクチャセキュリティなどの低レベルのインフラストラクチャと運用を考慮する必要から解放されています。
 したがって、サーバーレスコンピューティングは、開発者が付加価値の高いコードを開発することに迅速に集中できるように、基本的にメンテナンスの労力を軽減することです。
 
-サーバレスコンピューティングは、クラウドネイティブアプリケーションの開発を簡素化し、
+サーバーレスコンピューティングは、クラウドネイティブアプリケーションの開発を簡素化し、
   特に複雑なアプリケーションを簡単に交換できる小さな独立したモジュールに分解するマイクロサービス指向のソリューションです。
 
-サーバレスコンピューティングは、特定のテクノロジを参照するものではありません。その代わりに前に説明したモデルの基礎をなす概念を参照します。
-それにもかかわらず、OpenWhiskのようなサーバレスモデルに続く開発アプローチの緩和が近年浮上しています。
+サーバーレスコンピューティングは、特定のテクノロジを参照するものではありません。その代わりに前に説明したモデルの基礎をなす概念を参照します。
+それにもかかわらず、OpenWhiskのようなサーバーレスモデルに続く開発アプローチの緩和が近年浮上しています。
 
 OpenWhiskはクラウドファーストの分散イベントベースのプログラミングサービスで、イベントに応じてコードを実行できるFaaSプラットフォームです。
 
-前述のサーバレスデプロイメントモデルとオペレーションモデルを提供し、
+前述のサーバーレスデプロイメントモデルとオペレーションモデルを提供し、
 どのような規模でも細かい価格設定モデルを使用して、正確なリソースを提供します。- それ以上でもそれ以下でもありません - 実際に実行されるコードに対してのみ料金を請求します。柔軟なプログラミングモデルを提供します。*Java, JavaScript, PHP, Python, and Swift* などの言語や、*Docker* コンテナを使用してカスタムロジックの実行をサポートします。これにより、小さなアジャイルチームは既存のスキルを再利用し、目的に合った方法で開発することができます。また、開発したビルディングブロックをつなげて動作させるツールも提供します。オープンであり、ベンダーロックインを避けるためにどこでも実行できます。
 
 まとめると、OpenWhiskは以下を提供します。
 * ... 豊富なビルディングブロックを簡単につけたりはずしたりできます
 * ... 低レベルで少ないインフラストラクチャと運用によりビジネスへの付加価値を重視することに注力出来ます
 * ... シーケンスを利用して、簡単にマイクロサービスをつなげることが出来ます
-* ... 制御ロジックと状態を使用して複数の機能を組み合わせることで、より複雑なサーバレスアプリケーションを構成することが出来ます（ * tech-preview * ）
+* ... 制御ロジックと状態を使用して複数の機能を組み合わせることで、より複雑なサーバーレスアプリケーションを構成することが出来ます（ * tech-preview * ）
 
 まとめると、我々のバリューポジションと他との違いは:
 * OpenWhiskはインフラストラクチャの複雑さを隠し、開発者がビジネスロジックに集中できるようにします。
@@ -2210,32 +2210,33 @@ To summarize, the App Connect flow took care of posting to a dedicated *Message 
 
 # Special fuel for your engine!
 
-OpenWhisk also integrates with other (3rd party) tools to provide developers with a great developer experience. In the following we have picked two simple samples to demonstrate such kind of integration.
+OpenWhiskはまた、他の（サードパーティの）ツールと統合して、開発者に素晴らしいエクスペリエンスを提供します。 以下では、２つの簡単なサンプルで統合を実証します。
 
-## Developing with VS Code
+## VS Codeとの開発
 
-Many, especially *JavaScript/NodeJS*, developers use *VS Code* to develop their code.
-We have recently developed a prototypical extension (not yet officially supported) for *VS Code* that enables complete round trip cycles for authoring OpenWhisk actions inside the editor.
+多くの開発者、特に*JavaScript/NodeJS*は、*VS Code*を使ってコードを開発しています。
+私たちは最近、エディタ内でOpenWhiskアクションをオーサリングするための完全なラウンドトリップサイクルを可能にする*VS Code*のプロトタイプ拡張機能（まだ正式にはサポートされていません）を開発しました。
 
-The key point for this extension is that it has full round trip for OpenWhisk actions (*list, create new local, create new remote, update, import from remote system, invoke, etc.*) without the need to leave the IDE which makes development cycles far shorter and easier. The extension works for action written in different languages (like *JavaScript and Swift*) and on different platforms (like *Windows, Mac, and Linux*).
+この拡張機能のポイントは、IDEを離れずにOpenWhiskアクション(*リスト作成、新規ローカル作成、新しいリモート作成、更新、リモートシステムからのインポート、呼び出しなど)をフルラウンドトリップできることです。 開発サイクルはずっと短くて簡単です。 この拡張機能は、*JavaScriptやSwift*などの異なる言語で書かれたアクションや、*Windows、Mac、Linux*などのさまざまなプラットフォームで動作します。
 
-In the future we plan to provide more such plug-ins for additional IDEs (this is no official commitment) and hence seek for early feedback.
+将来的には、追加のIDE用にこのようなプラグインを提供する予定です(これは公式なコミットメントではありません)。
 
-First, download *VS Code* for your platform from here: https://code.visualstudio.com/  
-Next, download the extension from here: https://ibm.box.com/s/r4pdwpdmmceubzpnmsskp3hoh65r9zmm (in the near future you will also get the latest code from here: https://github.com/openwhisk/openwhisk-vscode#downloads)
+はじめに、*VS Code*をこちらからあなたのプラットフォームに合わせてダウンロードしてください: https://code.visualstudio.com/  
+次に、拡張機能をこちらからダウンロードしてください: https://ibm.box.com/s/r4pdwpdmmceubzpnmsskp3hoh65r9zmm (近い将来、最新版を入手する場合はこちらから: https://github.com/openwhisk/openwhisk-vscode#downloads)
 
-To install the extension open *VS Code* and switch to the extensions view (`View → Extensions`).  
-Click the `more` menu (represented by the `•••` icon at the very top) and select `install from VSIX...`  
-Point to the `VSIX file` you downloaded.
+拡張機能をインストールするには、*VS Code*を開いて拡張機能ビューへ切り替えます。(`表示 → 拡張機能`)  
+拡張機能の`•••`アイコンをクリックし、`VSIXからのインストール...`を選択します。
+ダウンロードした｀VSIXファイル`を選びます。
+その後、`今すぐ再度読み込む`をクリックし有効にします。
 
-Once you have the extension installed, you will have to run `wsk property set` inside of *VS Code* to set the `apihost`, `auth`, and `namespace` values the same way you did configure your local CLI at the very beginning of this workshop:
+拡張機能をインストールしたら、このワークショップの始まりでローカルのCLIを設定したのと同じ方法で、`apihost`、`auth`、`namespace`の値を設定するために*VS Code*の上中で`wsk property set`を実行する必要があります：
 
-Open the command palette via `View → Command Palette` or by pressing `F1` and entering: `wsk property set`
+`表示→コマンド パレット`でコマンド パレットを開くか、` F1`を押して `wsk property set`を入力してコマンド・パレットを開きます。
 
-When prompted select the option `apihiost` and press `enter`.  
-Next enter the correct value for the apihost property.
+プロンプトが表示されたら `apihiost`オプションを選択し、` enter`を押します。
+次に、apihostプロパティの正しい値を入力します。
 
-In the console you should see a result like this:
+コンソールには、次のような結果が表示されます:
 
 <pre>
 $ wsk property set apiHost openwhisk.ng.bluemix.net
@@ -2243,11 +2244,11 @@ set config: apiHost=openwhisk.ng.bluemix.net
 Configuration saved in C:\Users\IBM_ADMIN\.openwhisk\vscode-config.json
 </pre>
 
-Repeat this procedure to set the proper values for the `auth` and `namespace` properties.
+`auth`と`namespace`のプロパティについても正しい値に設定します。
 
-Notice that you can retrieve the correct values from here (after clicking the `Looking for the wsk CLI?` link at the very bottom of the screen): https://new-console.ng.bluemix.net/openwhisk/cli
+Notice ここから正しい値を取得できます (画面一番下にある`wsk CLI をお探しですか?`をクリックした後): https://new-console.ng.bluemix.net/openwhisk/cli
 
-Now switch to the explorer (`View → Explorer`), implement the following action and save the file (name it `helloFromVSCode.js`):
+エクスプローラーに切り替えて(`表示 → エクスプローラー`)、次のアクションを実装・ファイル保存します。 (名前は`helloFromVSCode.js`):
 
 ```javascript
 function main() {
@@ -2255,15 +2256,15 @@ function main() {
 }
 ```
 
-Press `F1` to open the command palette and enter:
+`F1`キーを押してコマンドパレットを開き、次のように入力します:
 
 <pre>
 wsk action create
 </pre>
 
-When prompted enter an identifier for your action like `helloFromVSCode`.
+プロンプトが表示されたら、 `helloFromVSCode`のようなアクションの識別子を入力してください。
 
-In the console you should see a result like this:
+コンソールには、次のような結果が表示されます:
 
 <pre>
 $ wsk action create helloFromVSCode
@@ -2271,15 +2272,15 @@ Creating a new action using the currently open document: file:///c%3A/Users/IBM_
 OpenWhisk action created: andreas.nauerz@de.ibm.com_dev/helloFromVSCode
 </pre>
 
-Finally, invoke the action by opening the command palette (`F1`) again and entering:
+最後に、コマンドパレット（ `F1`）をもう一度開き、次のように入力してアクションを呼び出します：
 
 <pre>
 wsk action invoke
 </pre>
 
-From the pull-down menu appearing select the action to be invoke – in our case the one named `helloFromVSCode`.
+表示されるプルダウンメニューから、呼び出すアクションを選択します。ここでは、「helloFromVSCode」という名前のアクションを選択します:
 
-In the console you should see a result like this:
+コンソールには、次のような結果が表示されます:
 
 <pre>
 $ wsk action invoke helloFromVSCode
@@ -2294,27 +2295,28 @@ $ wsk action invoke helloFromVSCode
 >> completed in 1855ms
 </pre>
 
-Feel free to experiment with the extension a bit on your own and provide us with any feedback you have.
+拡張機能を自分で少し試してみて、ご意見をお寄せください
 
-## Developing with the Serverless Framework
+## Serverless Frameworkで開発する
 
-Very recently we have announced our integration with the *Serverless Framework* (https://serverless.com/framework/). Hence, developers can now use the framework to build applications for the OpenWhisk platform.
+ごく最近、私達は*Serverless Framework* (https://serverless.com/framework/)と統合していくことを発表しました。これによって開発者はこのフレームワークを使用してOpenWhiskプラットフォームのアプリケーションを構築できます。
 
-The *Serverless Framework* is the most popular open-source framework for building serverless applications. Launching back in 2015, under a different name, the framework has experienced tremendous growth and now has over fourteen thousands stars on *Github*.
+*Serverless Framework*は、サーバーレスアプリケーションを構築するための最も一般的なオープンソースのフレームワークです。2015年に始まった別の名前で、このフレームワークは驚異的な成長を遂げており、現在*Github*には14,000以上のスターがつけられています。
 
-Thousands of developers are using the tool to build serverless applications every day.
+数千の開発者がこのツールを使用して毎日サーバーレスアプリケーションを構築しています。
 
-Using a simple manifest file, developers can define serverless functions, connect them to event sources and declare cloud services needed by their application.
+開発者は簡単なマニフェストファイルを使用して、サーバーレス機能を定義し、イベントソースに接続し、アプリケーションで必要なクラウドサービスを定義することができます。
 
-The framework handles deploying these serverless applications to the cloud provider. It also allows developers to monitor services in production, roll-out updates and assist debugging issues.
+このフレームワークは、これらのサーバーレスアプリケーションをクラウドプロバイダーにデプロイします。
+また、開発者は運用中のサービスを監視したり、更新を展開し、問題のデバックを支援することができます。
 
-It also has a vibrant ecosystem of third-party plugins to extend the functionality of the framework.
+また、フレームワークの機能を拡張するため、サードパーティプラグインを拡張するためのエコシステムがあります。
 
-With the aforementioned integration developers using the framework can now choose to deploy their serverless applications to any OpenWhisk platform instance. Multi-provider support also means moving applications between platforms is much easier and developers can even develop multi-cloud serverless applications.
+前述の統合で、フレームワークを使用する開発者は、サーバーレスアプリケーションをOpenWhiskプラットフォームインスタンスに展開することを選択できるようになりました。マルチプロバイダのサポートはまた、プラットフォーム間のアプリケーション移動が簡単であり、開発者はマルチクラウドサーバーレスアプリケーションを開発できることを意味します。
 
-### Installing the Serverless Framework
+### サーバーレスフレームワークのインストール
 
-First, let's install the framework and the required dependencies:
+はじめに、フレームワークと必要な依存関係をインストールしましょう:
 
 <pre>
 $ sudo npm install --global serverless serverless-openwhisk
