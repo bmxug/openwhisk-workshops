@@ -50,8 +50,8 @@
   * [Inline coding](#inline-coding)
 - [IBM App Connect & Message Hub](#ibm-app-connect---message-hub)
 - [Special fuel for your engine!](#special-fuel-for-your-engine-)
-  * [VS Codeとの開発](#developing-with-vs-code)
-  * [Serverless Frameworkで開発する](#developing-with-the-serverless-framework)
+  * [VS Codeとの開発](#vs-codeとの開発)
+  * [Serverless Frameworkで開発する](#serverless-frameworkで開発する)
     + [Installing the Serverless Framework](#installing-the-serverless-framework)
     + [Working with Actions](#working-with-actions)
     + [Working with Sequences](#working-with-sequences)
@@ -2307,15 +2307,16 @@ $ wsk action invoke helloFromVSCode
 
 開発者は簡単なマニフェストファイルを使用して、サーバーレス機能を定義し、イベントソースに接続し、アプリケーションで必要なクラウドサービスを定義することができます。
 
-The framework handles deploying these serverless applications to the cloud provider. It also allows developers to monitor services in production, roll-out updates and assist debugging issues.
+このフレームワークは、これらのサーバーレスアプリケーションをクラウドプロバイダーにデプロイします。
+また、開発者は運用中のサービスを監視したり、更新を展開し、問題のデバックを支援することができます。
 
-It also has a vibrant ecosystem of third-party plugins to extend the functionality of the framework.
+また、フレームワークの機能を拡張するため、サードパーティプラグインを拡張するためのエコシステムがあります。
 
-With the aforementioned integration developers using the framework can now choose to deploy their serverless applications to any OpenWhisk platform instance. Multi-provider support also means moving applications between platforms is much easier and developers can even develop multi-cloud serverless applications.
+前述の統合で、フレームワークを使用する開発者は、サーバーレスアプリケーションをOpenWhiskプラットフォームインスタンスに展開することを選択できるようになりました。マルチプロバイダのサポートはまた、プラットフォーム間のアプリケーション移動が簡単であり、開発者はマルチクラウドサーバーレスアプリケーションを開発できることを意味します。
 
-### Installing the Serverless Framework
+### サーバーレスフレームワークのインストール
 
-First, let's install the framework and the required dependencies:
+はじめに、フレームワークと必要な依存関係をインストールしましょう:
 
 <pre>
 $ sudo npm install --global serverless serverless-openwhisk
